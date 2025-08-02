@@ -43,8 +43,15 @@ def parse_email(path: str) -> List[str]:
     text = raw.get("content", "")
     return chunk_text(text)
 
+from urllib.parse import urlparse
+
+def get_extension(path: str) -> str:
+    # Remove query string if present
+    path = urlparse(path).path
+    return os.path.splitext(path)[-1].lower()
+
 def parse_document(path: str) -> ParsedDocument:
-    ext = os.path.splitext(path)[-1].lower()
+    ext = get_extension(path)
     if ext == ".pdf":
         try:
             return ParsedDocument(parse_pdf_pymupdf(path), {"parser": "pymupdf"})
