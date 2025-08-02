@@ -3,7 +3,7 @@ uvicorn[standard]
 httpx
 pydantic
 openai
-pinecone-client
+pinecone
 faiss-cpu
 PyMuPDF
 pdfplumber
