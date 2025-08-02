@@ -100,6 +100,3 @@ async def hackrx_run(
     print("Leaderboard log:", leaderboard_log)
     return RunResponse(answers=list(answers))
 
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 8000))
-    uvicorn.run(app, host="0.0.0.0", port=port)
