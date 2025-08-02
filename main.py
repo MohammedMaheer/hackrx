@@ -38,8 +38,10 @@ class AnswerWithExplain(BaseModel):
 
 class RunResponse(BaseModel):
     answers: List[AnswerWithExplain]
+@app.get("/")
+async def root():
+    return {"status": "ok"}
 
-# --- Endpoint Implementation ---
 @app.post("/hackrx/run", response_model=RunResponse)
 async def hackrx_run(
     req: RunRequest,
@@ -99,4 +101,5 @@ async def hackrx_run(
     return RunResponse(answers=list(answers))
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
