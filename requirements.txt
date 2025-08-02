@@ -9,6 +9,7 @@ aiofiles==23.2.0
 pinecone-client==3.0.0
 faiss-cpu==1.7.4
 cohere==4.37
+numpy>=1.23,<2.0
 
 # Document parsing - Fixed versions to avoid cryptography issues
 pymupdf==1.23.8
