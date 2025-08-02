@@ -7,6 +7,8 @@ import cohere
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+PINECONE_INDEX = os.getenv("PINECONE_INDEX", "hackrx-llm-index")
+PINECONE_REGION = os.getenv("PINECONE_REGION", "us-west-2")
 
 # --- Embedding Model (Cohere for speed/token efficiency) ---
 co = cohere.Client(COHERE_API_KEY) if COHERE_API_KEY else None
@@ -43,14 +45,15 @@ class HybridRetriever:
         self.pinecone_index = None
         if self.use_pinecone:
             # Create or connect to Pinecone index
-            index_name = "hackrx-llm-index"
+            index_name = PINECONE_INDEX
+            region = PINECONE_REGION
             existing_indexes = [idx.name for idx in pc.list_indexes()]
             if index_name not in existing_indexes:
                 pc.create_index(
                     name=index_name,
                     dimension=dim,
                     metric="cosine",
-                    spec=ServerlessSpec(cloud="aws", region="us-west-2")
+                    spec=ServerlessSpec(cloud="aws", region=region)
                 )
             self.pinecone_index = pc.Index(index_name)
     def index(self, chunks: List[str]):
