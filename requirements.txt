@@ -1,15 +1,26 @@
-fastapi
-uvicorn[standard]
-httpx
-pydantic
-openai
-pinecone
-faiss-cpu
-PyMuPDF
-pdfplumber
-python-docx
-tika
-python-dotenv
-psycopg2-binary
-cohere
-aiofiles
+# Core FastAPI and server
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+httpx==0.25.2
+pydantic==2.5.0
+aiofiles==23.2.0
+
+# Vector databases and embeddings
+pinecone-client==3.0.0
+faiss-cpu==1.7.4
+cohere==4.37
+
+# Document parsing - Fixed versions to avoid cryptography issues
+pymupdf==1.23.8
+pypdf2==3.0.1
+python-docx==1.1.0
+
+# Environment and utilities
+python-dotenv==1.0.0
+
+# Optional: Database support
+psycopg2-binary==2.9.9
+
+# Development and testing
+pytest==7.4.3
+pytest-asyncio==0.21.1

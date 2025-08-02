@@ -1,24 +1,59 @@
+import sys
 import os
+import logging
+import traceback
+import asyncio
+import time
+import tempfile
+from typing import List, Optional, Dict, Any
+
+# Railway environment fixes
+def setup_railway_environment():
+    """Setup environment variables and paths for Railway deployment"""
+    port = int(os.environ.get("PORT", 8000))
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    if current_dir not in sys.path:
+        sys.path.insert(0, current_dir)
+    if not os.getenv("PYTHONPATH"):
+        os.environ["PYTHONPATH"] = current_dir
+    return port
+
+port = setup_railway_environment()
+
 from fastapi import FastAPI, Request, HTTPException, Header
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import List, Optional, Dict, Any
 import uvicorn
+import httpx
+import aiofiles
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 from utils import verify_bearer_token
 
 app = FastAPI(title="HackRx 6.0 LLM Query–Retrieval System")
 
-import logging, traceback
-logging.basicConfig(filename='error.log', level=logging.ERROR, format='%(asctime)s %(message)s')
-from fastapi.responses import JSONResponse
-from fastapi.requests import Request
+# Logging setup
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('error.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     tb = traceback.format_exc()
-    logging.error(f"Exception on {request.url}: {tb}")
-    return JSONResponse(status_code=500, content={"error": str(exc), "traceback": tb})
+    logger.error(f"Exception on {request.url}: {tb}")
+    return JSONResponse(
+        status_code=500, 
+        content={"error": str(exc), "traceback": tb}
+    )
 
 # --- Request/Response Schemas ---
 class RunRequest(BaseModel):
@@ -38,65 +73,197 @@ class AnswerWithExplain(BaseModel):
 
 class RunResponse(BaseModel):
     answers: List[AnswerWithExplain]
+
 @app.get("/")
 async def root():
-    return {"status": "ok"}
+    return {
+        "status": "ok", 
+        "message": "HackRx 6.0 LLM Query-Retrieval System",
+        "version": "1.0.0"
+    }
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": time.time()}
 
 @app.post("/hackrx/run", response_model=RunResponse)
 async def hackrx_run(
     req: RunRequest,
     authorization: str = Header(..., description="Bearer <api_key>")
 ):
+    """Main endpoint for document analysis and question answering"""
+    
     # Auth check
     if not verify_bearer_token(authorization):
         raise HTTPException(status_code=401, detail="Invalid or missing Bearer token.")
 
-    import aiofiles, tempfile, httpx, asyncio, time
-    from document_parser import parse_document
-    from hybrid_retriever import HybridRetriever
-    from perplexity_api import perplexity_semantic_search
-    from answer_explainer import generate_explainable_answer
-    from cache_utils import acache_result
+    try:
+        from document_parser import parse_document
+        from hybrid_retriever import HybridRetriever
+        from perplexity_api import perplexity_semantic_search
+        from answer_explainer import generate_explainable_answer
+        from cache_utils import acache_result
 
-    leaderboard_log = []
-    start_time = time.time()
-    # 1. Download document
-    async with httpx.AsyncClient(timeout=30) as client:
-        r = await client.get(req.documents)
-        r.raise_for_status()
-        suffix = os.path.splitext(req.documents)[-1]
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-            tmp.write(r.content)
-            tmp_path = tmp.name
-    # 2. Parse and chunk document
-    parsed = parse_document(tmp_path)
-    chunks = parsed.chunks
-    # 3. Index chunks (hybrid Pinecone/FAISS)
-    retriever = HybridRetriever()
-    retriever.index(chunks)
+        leaderboard_log = []
+        start_time = time.time()
+        
+        # 1. Download document
+        logger.info(f"Downloading document from: {req.documents}")
+        async with httpx.AsyncClient(timeout=60) as client:
+            try:
+                response = await client.get(req.documents)
+                response.raise_for_status()
+            except httpx.TimeoutException:
+                raise HTTPException(status_code=408, detail="Document download timeout")
+            except httpx.HTTPError as e:
+                raise HTTPException(status_code=400, detail=f"Failed to download document: {str(e)}")
+            
+            # Determine file extension
+            suffix = os.path.splitext(req.documents)[-1]
+            if not suffix:
+                # Try to determine from content-type
+                content_type = response.headers.get('content-type', '')
+                if 'pdf' in content_type:
+                    suffix = '.pdf'
+                elif 'word' in content_type or 'docx' in content_type:
+                    suffix = '.docx'
+                else:
+                    suffix = '.txt'
+            
+            # Save to temporary file
+            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+                tmp.write(response.content)
+                tmp_path = tmp.name
 
-    # 4. Async batch for questions with caching
-    async def process_question(q):
-        # Hybrid semantic retrieval (embedding)
-        retrieved = retriever.search(q, top_k=8)
-        # LLM clause selection (Perplexity, cached)
-        cached_semantic = await acache_result(perplexity_semantic_search)
-        llm_match = await cached_semantic(q, retrieved)
-        selected_chunks = [llm_match["selected"]] if isinstance(llm_match["selected"], str) else llm_match["selected"]
-        # LLM answer, rationale, confidence (cached)
-        cached_answer = await acache_result(generate_explainable_answer)
-        answer_dict = await cached_answer(q, selected_chunks)
-        clause_objs = [ClauseMatch(text=cl, page=None, start_idx=None) for cl in answer_dict.get("matched_clauses", selected_chunks)]
-        leaderboard_log.append({"question": q, "latency": time.time() - start_time})
-        return AnswerWithExplain(
-            answer=answer_dict.get("answer", ""),
-            matched_clauses=clause_objs,
-            rationale=answer_dict.get("rationale", ""),
-            confidence_score=float(answer_dict.get("confidence", 50))
+        # 2. Parse and chunk document
+        logger.info("Parsing document...")
+        try:
+            parsed = parse_document(tmp_path)
+            chunks = parsed.chunks
+            
+            if not chunks:
+                raise HTTPException(status_code=400, detail="No content could be extracted from document")
+                
+            logger.info(f"Extracted {len(chunks)} chunks from document")
+            
+        except Exception as e:
+            logger.error(f"Document parsing failed: {e}")
+            raise HTTPException(status_code=400, detail=f"Document parsing failed: {str(e)}")
+        finally:
+            # Clean up temp file
+            try:
+                os.unlink(tmp_path)
+            except:
+                pass
+
+        # 3. Index chunks (hybrid Pinecone/FAISS)
+        logger.info("Indexing document chunks...")
+        try:
+            retriever = HybridRetriever()
+            retriever.index(chunks)
+        except Exception as e:
+            logger.error(f"Indexing failed: {e}")
+            raise HTTPException(status_code=500, detail=f"Document indexing failed: {str(e)}")
+
+        # 4. Process questions
+        async def process_question(q: str) -> AnswerWithExplain:
+            try:
+                question_start = time.time()
+                
+                # Hybrid semantic retrieval
+                retrieved = retriever.search(q, top_k=8)
+                
+                if not retrieved:
+                    return AnswerWithExplain(
+                        answer="No relevant information found in the document.",
+                        matched_clauses=[],
+                        rationale="No matching content found for this question.",
+                        confidence_score=0.0
+                    )
+                
+                # LLM clause selection (with caching)
+                cached_semantic = acache_result(perplexity_semantic_search)
+                llm_match = await cached_semantic(q, retrieved)
+                
+                # Extract selected chunks
+                selected_chunks = []
+                if isinstance(llm_match.get("selected"), str):
+                    selected_chunks = [llm_match["selected"]]
+                elif isinstance(llm_match.get("selected"), list):
+                    selected_chunks = llm_match["selected"]
+                else:
+                    # Fallback to top retrieved chunks
+                    selected_chunks = retrieved[:3]
+                
+                # Generate answer with explanation (with caching)
+                cached_answer = acache_result(generate_explainable_answer)
+                answer_dict = await cached_answer(q, selected_chunks)
+                
+                # Create clause objects
+                matched_clauses_text = answer_dict.get("matched_clauses", selected_chunks)
+                if isinstance(matched_clauses_text, str):
+                    matched_clauses_text = [matched_clauses_text]
+                
+                clause_objs = [
+                    ClauseMatch(text=cl[:500], page=None, start_idx=None) 
+                    for cl in matched_clauses_text[:5]  # Limit to 5 clauses
+                ]
+                
+                question_time = time.time() - question_start
+                leaderboard_log.append({
+                    "question": q, 
+                    "latency": question_time,
+                    "chunks_found": len(retrieved)
+                })
+                
+                return AnswerWithExplain(
+                    answer=answer_dict.get("answer", "Unable to generate answer"),
+                    matched_clauses=clause_objs,
+                    rationale=answer_dict.get("rationale", "Answer generated from document analysis"),
+                    confidence_score=float(answer_dict.get("confidence", 50))
+                )
+                
+            except Exception as e:
+                logger.error(f"Question processing failed for '{q}': {e}")
+                return AnswerWithExplain(
+                    answer=f"Error processing question: {str(e)}",
+                    matched_clauses=[],
+                    rationale="An error occurred during question processing",
+                    confidence_score=0.0
+                )
+
+        # Process all questions concurrently
+        logger.info(f"Processing {len(req.questions)} questions...")
+        answers = await asyncio.gather(
+            *[process_question(q) for q in req.questions],
+            return_exceptions=True
         )
-    answers = await asyncio.gather(*(process_question(q) for q in req.questions))
-    os.remove(tmp_path)
-    # Optionally: log leaderboard analytics (latency, etc.)
-    print("Leaderboard log:", leaderboard_log)
-    return RunResponse(answers=list(answers))
+        
+        # Handle any exceptions in the results
+        final_answers = []
+        for i, answer in enumerate(answers):
+            if isinstance(answer, Exception):
+                logger.error(f"Question {i} failed: {answer}")
+                final_answers.append(AnswerWithExplain(
+                    answer=f"Processing failed: {str(answer)}",
+                    matched_clauses=[],
+                    rationale="Question processing encountered an error",
+                    confidence_score=0.0
+                ))
+            else:
+                final_answers.append(answer)
 
+        total_time = time.time() - start_time
+        logger.info(f"Total processing time: {total_time:.2f}s for {len(req.questions)} questions")
+        logger.info(f"Leaderboard log: {leaderboard_log}")
+        
+        return RunResponse(answers=final_answers)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in hackrx_run: {e}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=port)
