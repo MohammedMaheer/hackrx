@@ -1,7 +1,7 @@
 import os
 from typing import List, Dict, Tuple, Optional
 import numpy as np
-import pinecone
+from pinecone import Pinecone, ServerlessSpec
 import faiss
 import cohere
 
@@ -13,7 +13,7 @@ co = cohere.Client(COHERE_API_KEY) if COHERE_API_KEY else None
 
 # --- Pinecone Setup ---
 if PINECONE_API_KEY:
-    pinecone.init(api_key=PINECONE_API_KEY, environment="gcp-starter")
+    pc = Pinecone(api_key=PINECONE_API_KEY)
 
 # --- FAISS Setup (in-memory, for fallback/local) ---
 class FaissIndex:
@@ -44,9 +44,15 @@ class HybridRetriever:
         if self.use_pinecone:
             # Create or connect to Pinecone index
             index_name = "hackrx-llm-index"
-            if index_name not in pinecone.list_indexes():
-                pinecone.create_index(index_name, dimension=dim, metric="cosine")
-            self.pinecone_index = pinecone.Index(index_name)
+            existing_indexes = [idx.name for idx in pc.list_indexes()]
+            if index_name not in existing_indexes:
+                pc.create_index(
+                    name=index_name,
+                    dimension=dim,
+                    metric="cosine",
+                    spec=ServerlessSpec(cloud="aws", region="us-west-2")
+                )
+            self.pinecone_index = pc.Index(index_name)
     def index(self, chunks: List[str]):
         vectors = embed_texts(chunks)
         if self.use_faiss:
