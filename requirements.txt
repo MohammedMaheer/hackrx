@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+httpx
+pydantic
+openai
+pinecone-client
+faiss-cpu
+PyMuPDF
+pdfplumber
+python-docx
+tika
+python-dotenv
+psycopg2-binary
+cohere
+aiofiles

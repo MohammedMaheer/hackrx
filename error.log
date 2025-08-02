@@ -1,0 +1,537 @@
+2025-08-02 19:39:36,854 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\layout.py", line 21, in <module>
+    from pdfminer.pdfinterp import Color, PDFGraphicState
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfinterp.py", line 10, in <module>
+    from pdfminer.pdfdevice import PDFDevice, PDFTextSeq
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdevice.py", line 16, in <module>
+    from pdfminer.pdfpage import PDFPage
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfpage.py", line 6, in <module>
+    from pdfminer.pdfdocument import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 19:41:22,232 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\layout.py", line 21, in <module>
+    from pdfminer.pdfinterp import Color, PDFGraphicState
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfinterp.py", line 10, in <module>
+    from pdfminer.pdfdevice import PDFDevice, PDFTextSeq
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdevice.py", line 16, in <module>
+    from pdfminer.pdfpage import PDFPage
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfpage.py", line 6, in <module>
+    from pdfminer.pdfdocument import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.hazmat.bindings._rust import openssl as rust_openssl
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 19:42:39,118 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\layout.py", line 21, in <module>
+    from pdfminer.pdfinterp import Color, PDFGraphicState
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfinterp.py", line 10, in <module>
+    from pdfminer.pdfdevice import PDFDevice, PDFTextSeq
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdevice.py", line 16, in <module>
+    from pdfminer.pdfpage import PDFPage
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfpage.py", line 6, in <module>
+    from pdfminer.pdfdocument import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 19:49:57,740 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\layout.py", line 20, in <module>
+    from .pdfinterp import Color
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfinterp.py", line 12, in <module>
+    from .pdfdevice import PDFDevice
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdevice.py", line 17, in <module>
+    from .pdfpage import PDFPage
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfpage.py", line 7, in <module>
+    from .pdfdocument import PDFDocument, PDFTextExtractionNotAllowed, PDFNoPageLabels
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\AppData\Roaming\Python\Python39\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 19:52:08,258 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 52, in hackrx_run
+    import aiofiles, tempfile, httpx, asyncio, time
+ModuleNotFoundError: No module named 'aiofiles'
+
+2025-08-02 19:52:51,297 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 4, in <module>
+    import fitz  # PyMuPDF
+ModuleNotFoundError: No module named 'fitz'
+
+2025-08-02 19:54:55,237 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\layout.py", line 20, in <module>
+    from .pdfinterp import Color
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfinterp.py", line 12, in <module>
+    from .pdfdevice import PDFDevice
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdevice.py", line 17, in <module>
+    from .pdfpage import PDFPage
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfpage.py", line 7, in <module>
+    from .pdfdocument import PDFDocument, PDFTextExtractionNotAllowed, PDFNoPageLabels
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 19:56:36,900 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\layout.py", line 20, in <module>
+    from .pdfinterp import Color
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfinterp.py", line 12, in <module>
+    from .pdfdevice import PDFDevice
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdevice.py", line 17, in <module>
+    from .pdfpage import PDFPage
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfpage.py", line 7, in <module>
+    from .pdfdocument import PDFDocument, PDFTextExtractionNotAllowed, PDFNoPageLabels
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 20:13:46,350 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\layout.py", line 20, in <module>
+    from .pdfinterp import Color
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfinterp.py", line 12, in <module>
+    from .pdfdevice import PDFDevice
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdevice.py", line 17, in <module>
+    from .pdfpage import PDFPage
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfpage.py", line 7, in <module>
+    from .pdfdocument import PDFDocument, PDFTextExtractionNotAllowed, PDFNoPageLabels
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 20:18:30,275 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\layout.py", line 20, in <module>
+    from .pdfinterp import Color
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfinterp.py", line 12, in <module>
+    from .pdfdevice import PDFDevice
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdevice.py", line 17, in <module>
+    from .pdfpage import PDFPage
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfpage.py", line 7, in <module>
+    from .pdfdocument import PDFDocument, PDFTextExtractionNotAllowed, PDFNoPageLabels
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
+2025-08-02 20:19:03,896 Exception on http://localhost:8000/hackrx/run: Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\fastapi\routing.py", line 213, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\main.py", line 53, in hackrx_run
+    from document_parser import parse_document
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\document_parser.py", line 5, in <module>
+    import pdfplumber
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\__init__.py", line 15, in <module>
+    from .pdf import PDF
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfplumber\pdf.py", line 8, in <module>
+    from pdfminer.layout import LAParams
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\layout.py", line 20, in <module>
+    from .pdfinterp import Color
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfinterp.py", line 12, in <module>
+    from .pdfdevice import PDFDevice
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdevice.py", line 17, in <module>
+    from .pdfpage import PDFPage
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfpage.py", line 7, in <module>
+    from .pdfdocument import PDFDocument, PDFTextExtractionNotAllowed, PDFNoPageLabels
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\pdfminer\pdfdocument.py", line 23, in <module>
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\__init__.py", line 11, in <module>
+    from cryptography.hazmat.primitives.ciphers.base import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\hazmat\primitives\ciphers\base.py", line 10, in <module>
+    from cryptography.exceptions import (
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\venv\lib\site-packages\cryptography\exceptions.py", line 9, in <module>
+    from cryptography.hazmat.bindings._rust import exceptions as rust_exceptions
+ImportError: DLL load failed while importing _rust: The specified procedure could not be found.
+
