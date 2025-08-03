@@ -107,7 +107,7 @@ async def test_authentication():
     }
     
     data = {
-        "document_url": TEST_DOCUMENT_URL,
+        "documents": TEST_DOCUMENT_URL,
         "questions": ["Test question"]
     }
     
