@@ -4,6 +4,7 @@ Test script for the HackRx LLM Query-Retrieval System
 """
 
 import asyncio
+import pytest
 import httpx
 import json
 import os
@@ -24,6 +25,7 @@ TEST_QUESTIONS = [
     "What is the premium payment schedule?"
 ]
 
+@pytest.mark.asyncio
 async def test_health_check():
     """Test the health check endpoint"""
     print("Testing health check...")
@@ -35,9 +37,20 @@ async def test_health_check():
             print(f"Response: {response.json()}")
             return response.status_code == 200
         except Exception as e:
-            print(f"Health check failed: {e}")
+            import traceback
+            print("Health check failed:")
+            traceback.print_exc()
             return False
 
+import pytest
+
+@pytest.mark.asyncio
+async def test_health_check():
+    """Test the health check endpoint"""
+    print("Testing health check...")
+    # ...
+
+@pytest.mark.asyncio
 async def test_main_endpoint():
     """Test the main /hackrx/run endpoint"""
     print("\nTesting main endpoint...")
@@ -91,6 +104,7 @@ async def test_main_endpoint():
             print(f"Request failed: {e}")
             return False
 
+@pytest.mark.asyncio
 async def test_authentication():
     """Test authentication with invalid token"""
     print("\nTesting authentication...")
