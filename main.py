@@ -32,6 +32,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from utils import verify_bearer_token
+from semantic_chunker import semantic_chunk_text
 
 app = FastAPI(title="HackRx 6.0 LLM Query–Retrieval System")
 
@@ -100,12 +101,12 @@ async def hackrx_run(
     try:
         from document_parser import parse_document
         from hybrid_retriever import HybridRetriever
-        from perplexity_api import perplexity_semantic_search
+        from gemini_api import gemini_semantic_search
         from answer_explainer import generate_explainable_answer
         from cache_utils import acache_result
 
         # Decorate once, outside process_question
-        cached_semantic = acache_result(perplexity_semantic_search)
+        cached_semantic = acache_result(gemini_semantic_search)
         cached_answer = acache_result(generate_explainable_answer)
 
         leaderboard_log = []
@@ -143,13 +144,12 @@ async def hackrx_run(
         logger.info("Parsing document...")
         try:
             parsed = parse_document(tmp_path)
-            chunks = parsed.chunks
-            
+            # Use semantic/sentence-aware chunking
+            raw_text = parsed.text if hasattr(parsed, 'text') else '\n'.join(parsed.chunks)
+            chunks = semantic_chunk_text(raw_text, max_tokens=350, overlap=60)
             if not chunks:
                 raise HTTPException(status_code=400, detail="No content could be extracted from document")
-                
-            logger.info(f"Extracted {len(chunks)} chunks from document")
-            
+            logger.info(f"Extracted {len(chunks)} semantic chunks from document")
         except Exception as e:
             logger.error(f"Document parsing failed: {e}")
             raise HTTPException(status_code=400, detail=f"Document parsing failed: {str(e)}")
@@ -169,99 +169,42 @@ async def hackrx_run(
             logger.error(f"Indexing failed: {e}")
             raise HTTPException(status_code=500, detail=f"Document indexing failed: {str(e)}")
 
-        # 4. Process questions
-        async def process_question(q: str) -> AnswerWithExplain:
-            try:
-                question_start = time.time()
-                
-                # Hybrid semantic retrieval
-                retrieved = await retriever.search(q, top_k=8)
-                
-                if not retrieved:
-                    return AnswerWithExplain(
-                        answer="No relevant information found in the document.",
-                        matched_clauses=[],
-                        rationale="No matching content found for this question.",
-                        confidence_score=0.0
-                    )
-                
-                # LLM clause selection (with caching)
-                llm_match = await cached_semantic(q, retrieved)
-                logger.info(f"Type of llm_match: {type(llm_match)}")
-                
-                # Extract selected chunks
-                selected_chunks = []
-                if isinstance(llm_match.get("selected"), str):
-                    selected_chunks = [llm_match["selected"]]
-                elif isinstance(llm_match.get("selected"), list):
-                    selected_chunks = llm_match["selected"]
-                else:
-                    # Fallback to top retrieved chunks
-                    selected_chunks = retrieved[:3]
-                
-                # Generate answer with explanation (with caching)
-                answer_dict = await cached_answer(q, selected_chunks)
-                logger.info(f"Type of answer_dict: {type(answer_dict)}")
-                
-                # Create clause objects
-                matched_clauses_text = answer_dict.get("matched_clauses", selected_chunks)
-                if isinstance(matched_clauses_text, str):
-                    matched_clauses_text = [matched_clauses_text]
-                
-                clause_objs = [
-                    ClauseMatch(text=cl[:500], page=None, start_idx=None) 
-                    for cl in matched_clauses_text[:5]  # Limit to 5 clauses
-                ]
-                
-                question_time = time.time() - question_start
-                leaderboard_log.append({
-                    "question": q, 
-                    "latency": question_time,
-                    "chunks_found": len(retrieved)
-                })
-                
-                return AnswerWithExplain(
-                    answer=answer_dict.get("answer", "Unable to generate answer"),
-                    matched_clauses=clause_objs,
-                    rationale=answer_dict.get("rationale", "Answer generated from document analysis"),
-                    confidence_score=float(answer_dict.get("confidence", 50))
-                )
-                
-            except Exception as e:
-                logger.error(f"Question processing failed for '{q}': {e}")
-                return AnswerWithExplain(
-                    answer=f"Error processing question: {str(e)}",
-                    matched_clauses=[],
-                    rationale="An error occurred during question processing",
-                    confidence_score=0.0
-                )
-
-        # Process all questions concurrently
+        # 4. Batch retrieve top chunks for all questions
         logger.info(f"Processing {len(req.questions)} questions...")
-        answers = await asyncio.gather(
-            *[process_question(q) for q in req.questions],
-            return_exceptions=True
-        )
-        
-        # Handle any exceptions in the results
-        final_answers = []
-        for i, answer in enumerate(answers):
-            if isinstance(answer, Exception):
-                logger.error(f"Question {i} failed: {answer}")
-                final_answers.append(AnswerWithExplain(
-                    answer=f"Processing failed: {str(answer)}",
+        all_retrieved = await retriever.batch_search(req.questions, top_k=8, re_rank=True)
+
+        # 5. Generate answers for all questions in batch
+        answers = []
+        for q, retrieved in zip(req.questions, all_retrieved):
+            if not retrieved:
+                answers.append(AnswerWithExplain(
+                    answer="No relevant information found in the document.",
                     matched_clauses=[],
-                    rationale="Question processing encountered an error",
+                    rationale="No matching content found for this question.",
                     confidence_score=0.0
                 ))
-            else:
-                final_answers.append(answer)
+                continue
+            # Directly use retrieved chunks for answer pipeline
+            answer_dict = await cached_answer(q, retrieved[:2])
+            matched_clauses_text = answer_dict.get("matched_clauses", retrieved[:2])
+            if isinstance(matched_clauses_text, str):
+                matched_clauses_text = [matched_clauses_text]
+            clause_objs = [
+                ClauseMatch(text=cl[:500], page=None, start_idx=None)
+                for cl in matched_clauses_text[:5]
+            ]
+            answers.append(AnswerWithExplain(
+                answer=answer_dict.get("answer", "Unable to generate answer"),
+                matched_clauses=clause_objs,
+                rationale=answer_dict.get("rationale", "Answer generated from document analysis"),
+                confidence_score=float(answer_dict.get("confidence", 50))
+            ))
 
         total_time = time.time() - start_time
         logger.info(f"Total processing time: {total_time:.2f}s for {len(req.questions)} questions")
         logger.info(f"Leaderboard log: {leaderboard_log}")
         
-        return RunResponse(answers=final_answers)
+        return RunResponse(answers=answers)
         
     except HTTPException:
         raise

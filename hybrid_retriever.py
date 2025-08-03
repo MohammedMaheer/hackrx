@@ -2,6 +2,7 @@ import os
 import logging
 from typing import List, Dict, Tuple, Optional
 import numpy as np
+from semantic_chunker import semantic_chunk_text
 
 # Vector database imports with error handling
 try:
@@ -28,7 +29,6 @@ except ImportError:
 # Environment variables
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 COHERE_API_KEY = os.getenv("COHERE_API_KEY")
-PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
 PINECONE_INDEX = os.getenv("PINECONE_INDEX", "hackrx-llm-index")
 PINECONE_REGION = os.getenv("PINECONE_REGION", "us-east-1")
 
@@ -109,29 +109,19 @@ async def embed_texts_cohere(texts: List[str], model: str = "embed-english-v3.0"
         logger.error(f"Cohere embedding failed: {e}")
         raise
 
-async def embed_texts_perplexity_fallback(texts: List[str]) -> np.ndarray:
-    """Fallback embedding using Perplexity (if available)"""
-    # This is a placeholder - Perplexity doesn't have embedding endpoints
-    # In practice, you'd use OpenAI, HuggingFace, or sentence-transformers
-    # For now, return random embeddings as last resort
-    logger.warning("Using random embeddings as fallback - not recommended for production")
-    return np.random.rand(len(texts), 1024).astype(np.float32)
+async def embed_texts_fallback(texts: List[str]) -> np.ndarray:
+    """Fallback embedding using random vectors"""
+    # Return random embeddings as fallback
+    import numpy as np
+    return np.random.rand(len(texts), 768).astype(np.float32)
 
 async def embed_texts(texts: List[str], model: str = "embed-english-v3.0") -> np.ndarray:
     """Get embeddings with fallback options"""
-    if not texts:
-        return np.array([]).reshape(0, 1024)
-    
-    # Try Cohere first
-    if co:
-        try:
-            return await embed_texts_cohere(texts, model)
-        except Exception as e:
-            logger.error(f"Cohere embedding failed: {e}")
-    
-    # Fallback to random embeddings (not ideal, but prevents crashes)
-    logger.warning("Using fallback embeddings - accuracy will be reduced")
-    return await embed_texts_perplexity_fallback(texts)
+    if COHERE_AVAILABLE and co is not None:
+        return await embed_texts_cohere(texts, model)
+    else:
+        logger.warning("No embedding service available, using random fallback")
+        return await embed_texts_fallback(texts)
 
 # --- Hybrid Retriever ---
 class HybridRetriever:
@@ -240,50 +230,40 @@ class HybridRetriever:
             logger.error(f"Indexing failed: {e}")
             raise
     
-    async def search(self, query: str, top_k: int = 5) -> List[str]:
-        """Search for relevant chunks using hybrid approach"""
+    async def search(self, query: str, top_k: int = 5, re_rank: bool = True) -> List[str]:
+        """Search for relevant chunks using hybrid approach, with optional semantic re-ranking."""
         if not query.strip():
             return []
-        
         try:
             # Get query embedding
             query_vector = await embed_texts([query])
             if query_vector.size == 0:
                 logger.error("Failed to generate query embedding")
                 return self._fallback_text_search(query, top_k)
-            
             results = []
-            
             # Search Pinecone
             if self.use_pinecone and self.pinecone_index:
                 try:
                     pc_response = self.pinecone_index.query(
                         vector=query_vector[0].tolist(),
-                        top_k=top_k,
+                        top_k=top_k*2,  # retrieve more for re-ranking
                         include_metadata=True
                     )
-                    
                     for match in pc_response.get("matches", []):
                         if match.get("metadata", {}).get("text"):
                             results.append(match["metadata"]["text"])
-                    
                     logger.info(f"Pinecone returned {len(results)} results")
-                    
                 except Exception as e:
                     logger.error(f"Pinecone search failed: {e}")
-            
             # Search FAISS
             if self.use_faiss and self.faiss_index:
                 try:
-                    faiss_results = self.faiss_index.search(query_vector, top_k)
+                    faiss_results = self.faiss_index.search(query_vector, top_k*2)
                     for text, distance in faiss_results:
                         results.append(text)
-                    
                     logger.info(f"FAISS returned {len(faiss_results)} results")
-                    
                 except Exception as e:
                     logger.error(f"FAISS search failed: {e}")
-            
             # Deduplicate results while preserving order
             seen = set()
             deduped_results = []
@@ -291,19 +271,30 @@ class HybridRetriever:
                 if result not in seen:
                     deduped_results.append(result)
                     seen.add(result)
-            
-            final_results = deduped_results[:top_k]
-            
-            # If no results from vector search, use text fallback
+            candidates = deduped_results[:max(top_k*2, 8)]
+            # Semantic re-ranking
+            if re_rank and candidates:
+                candidate_embeddings = await embed_texts(candidates)
+                query_vec = query_vector[0]
+                similarities = np.dot(candidate_embeddings, query_vec) / (
+                    np.linalg.norm(candidate_embeddings, axis=1) * np.linalg.norm(query_vec) + 1e-8)
+                ranked = sorted(zip(candidates, similarities), key=lambda x: -x[1])
+                final_results = [x[0] for x in ranked[:top_k]]
+            else:
+                final_results = candidates[:top_k]
             if not final_results:
                 logger.warning("No vector search results, using text fallback")
                 return self._fallback_text_search(query, top_k)
-            
             return final_results
-            
         except Exception as e:
             logger.error(f"Search failed: {e}")
             return self._fallback_text_search(query, top_k)
+
+    async def batch_search(self, queries: List[str], top_k: int = 5, re_rank: bool = True) -> List[List[str]]:
+        """Batch search for multiple queries, async and with semantic re-ranking."""
+        import asyncio
+        results = await asyncio.gather(*[self.search(q, top_k=top_k, re_rank=re_rank) for q in queries])
+        return results
     
     def _fallback_text_search(self, query: str, top_k: int) -> List[str]:
         """Simple text-based search fallback when vector search fails"""

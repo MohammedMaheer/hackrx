@@ -1,0 +1,438 @@
+2025-08-03 15:50:58,746 - utils - WARNING - Token validation failed
+2025-08-03 15:50:59,015 - utils - INFO - Token validation successful
+2025-08-03 15:50:59,884 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 15:50:59,884 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 15:50:59,884 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 15:50:59,962 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 15:50:59,974 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 15:51:00,751 - main - INFO - Downloading document from: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+2025-08-03 15:51:01,384 - httpx - INFO - HTTP Request: GET https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf "HTTP/1.1 200 OK"
+2025-08-03 15:51:01,387 - main - INFO - Parsing document...
+2025-08-03 15:51:01,448 - main - INFO - Extracted 1 chunks from document
+2025-08-03 15:51:01,449 - main - INFO - Indexing document chunks...
+2025-08-03 15:51:01,451 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 15:51:04,784 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 15:51:04,784 - hybrid_retriever - INFO - Generating embeddings for 1 chunks...
+2025-08-03 15:51:05,642 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:51:05,667 - hybrid_retriever - INFO - Indexed 1 chunks in FAISS
+2025-08-03 15:51:08,197 - hybrid_retriever - INFO - Indexed 1 chunks in Pinecone
+2025-08-03 15:51:08,197 - main - INFO - Processing 4 questions...
+2025-08-03 15:51:08,578 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:51:09,134 - hybrid_retriever - INFO - Pinecone returned 3 results
+2025-08-03 15:51:09,150 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:51:09,521 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:51:09,887 - hybrid_retriever - INFO - Pinecone returned 3 results
+2025-08-03 15:51:09,887 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:51:10,266 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:51:10,675 - hybrid_retriever - INFO - Pinecone returned 3 results
+2025-08-03 15:51:10,675 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:51:11,047 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:51:11,386 - hybrid_retriever - INFO - Pinecone returned 3 results
+2025-08-03 15:51:11,387 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:51:12,764 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 15:51:12,777 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 15:51:12,777 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:51:12,777 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 15:51:12,779 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 15:51:12,779 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:51:12,807 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 15:51:12,808 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 15:51:12,810 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:51:12,810 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 15:51:12,811 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 15:51:12,811 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:51:12,812 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 15:51:12,812 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 15:51:12,812 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:51:12,815 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 15:51:12,815 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 15:51:12,815 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:51:12,927 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 15:51:12,928 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 15:51:12,928 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:51:12,928 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 15:51:12,932 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 15:51:12,932 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:51:12,932 - main - INFO - Total processing time: 12.18s for 4 questions
+2025-08-03 15:51:12,932 - main - INFO - Leaderboard log: [{'question': 'What is the coverage amount for medical expenses?', 'latency': 4.579812288284302, 'chunks_found': 1}, {'question': 'What is the premium payment schedule?', 'latency': 2.1286418437957764, 'chunks_found': 1}, {'question': 'What are the exclusions mentioned in this policy?', 'latency': 3.6530752182006836, 'chunks_found': 1}, {'question': 'What is the claim procedure?', 'latency': 3.0209829807281494, 'chunks_found': 1}]
+2025-08-03 15:53:23,674 - utils - WARNING - Token validation failed
+2025-08-03 15:53:23,950 - utils - INFO - Token validation successful
+2025-08-03 15:53:23,950 - main - INFO - Downloading document from: https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf
+2025-08-03 15:53:24,606 - httpx - INFO - HTTP Request: GET https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf "HTTP/1.1 200 OK"
+2025-08-03 15:53:24,628 - main - INFO - Parsing document...
+2025-08-03 15:53:24,631 - main - INFO - Extracted 1 chunks from document
+2025-08-03 15:53:24,631 - main - INFO - Indexing document chunks...
+2025-08-03 15:53:24,631 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 15:53:25,915 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 15:53:25,916 - hybrid_retriever - INFO - Generating embeddings for 1 chunks...
+2025-08-03 15:53:26,554 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:53:26,570 - hybrid_retriever - INFO - Indexed 1 chunks in FAISS
+2025-08-03 15:53:28,320 - hybrid_retriever - INFO - Indexed 1 chunks in Pinecone
+2025-08-03 15:53:28,320 - main - INFO - Processing 4 questions...
+2025-08-03 15:53:28,699 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:53:29,081 - hybrid_retriever - INFO - Pinecone returned 4 results
+2025-08-03 15:53:29,081 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:53:29,081 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:53:29,081 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:53:29,431 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:53:29,833 - hybrid_retriever - INFO - Pinecone returned 4 results
+2025-08-03 15:53:29,842 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:53:29,842 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:53:29,842 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:53:30,186 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:53:30,636 - hybrid_retriever - INFO - Pinecone returned 4 results
+2025-08-03 15:53:30,637 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:53:30,637 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:53:30,638 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:53:30,986 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 15:53:31,434 - hybrid_retriever - INFO - Pinecone returned 4 results
+2025-08-03 15:53:31,437 - hybrid_retriever - INFO - FAISS returned 1 results
+2025-08-03 15:53:31,437 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 15:53:31,439 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 15:53:31,439 - main - INFO - Total processing time: 7.49s for 4 questions
+2025-08-03 15:53:31,439 - main - INFO - Leaderboard log: [{'question': 'What is the coverage amount for medical expenses?', 'latency': 0.756476640701294, 'chunks_found': 1}, {'question': 'What are the exclusions mentioned in this policy?', 'latency': 0.7611324787139893, 'chunks_found': 1}, {'question': 'What is the claim procedure?', 'latency': 0.7963743209838867, 'chunks_found': 1}, {'question': 'What is the premium payment schedule?', 'latency': 0.8006119728088379, 'chunks_found': 1}]
+2025-08-03 16:00:39,676 - utils - WARNING - Token validation failed
+2025-08-03 16:00:39,943 - utils - INFO - Token validation successful
+2025-08-03 16:00:40,182 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 16:00:40,182 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 16:00:40,182 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 16:00:40,197 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 16:00:40,202 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 16:00:40,531 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:00:41,280 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:00:41,616 - main - INFO - Parsing document...
+2025-08-03 16:00:41,660 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:00:41,661 - main - INFO - Indexing document chunks...
+2025-08-03 16:00:41,661 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:00:44,633 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:00:44,633 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:00:49,871 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:00:56,190 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:01,487 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:07,536 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:09,827 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:11,571 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:11,937 - hybrid_retriever - INFO - Indexed 521 chunks in FAISS
+2025-08-03 16:01:34,875 - hybrid_retriever - INFO - Indexed 521 chunks in Pinecone
+2025-08-03 16:01:34,877 - main - INFO - Processing 4 questions...
+2025-08-03 16:01:35,463 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:35,864 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:01:35,872 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:01:36,232 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:36,560 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:01:36,561 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:01:36,906 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:37,234 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:01:37,235 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:01:37,589 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:01:37,961 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:01:37,961 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:01:37,974 - utils - WARNING - Token validation failed
+2025-08-03 16:01:40,425 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 16:01:40,428 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 16:01:40,428 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 16:01:40,430 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:01:40,430 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 16:01:40,430 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 16:01:40,431 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:01:40,432 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 16:01:40,432 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:01:40,432 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 16:01:40,432 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 16:01:40,433 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:01:40,434 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 16:01:40,436 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 16:01:40,436 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:01:40,436 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 16:01:40,437 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 16:01:40,437 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:01:40,638 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyBE7ON0iJhDVfW-9UGp8S_XkSdkEyWQ1NY "HTTP/1.1 200 OK"
+2025-08-03 16:01:40,641 - gemini_api - WARNING - Could not parse JSON from Gemini, using raw response
+2025-08-03 16:01:40,642 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:01:40,642 - answer_explainer - INFO - Generating answer using Gemini API
+2025-08-03 16:01:40,642 - answer_explainer - ERROR - Gemini API failed with error: 'content'
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 74, in generate_explainable_answer
+    gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=384)
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\gemini_api.py", line 40, in gemini_chat
+    "parts": [{"text": msg["content"]}]
+KeyError: 'content'
+2025-08-03 16:01:40,643 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:01:40,643 - main - INFO - Total processing time: 60.11s for 4 questions
+2025-08-03 16:01:40,644 - main - INFO - Leaderboard log: [{'question': 'What are the exclusions mentioned in this policy?', 'latency': 4.550782680511475, 'chunks_found': 8}, {'question': 'What is the claim procedure?', 'latency': 3.864161252975464, 'chunks_found': 4}, {'question': 'What is the coverage amount for medical expenses?', 'latency': 5.559746742248535, 'chunks_found': 8}, {'question': 'What is the premium payment schedule?', 'latency': 3.3991732597351074, 'chunks_found': 4}]
+2025-08-03 16:03:17,683 - utils - WARNING - Token validation failed
+2025-08-03 16:03:17,969 - utils - INFO - Token validation successful
+2025-08-03 16:03:17,969 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:03:18,539 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:03:19,040 - main - INFO - Parsing document...
+2025-08-03 16:03:19,083 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:03:19,084 - main - INFO - Indexing document chunks...
+2025-08-03 16:03:19,084 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:03:20,438 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:03:20,438 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:03:25,540 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:03:33,306 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:03:36,348 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:03:36,348 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '23c6ced59531ec1c91ba9468f80079e8', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:33:36 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '120', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'b340d211-12c6-4841-815c-a79c76c45ee3', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:03:36,355 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '23c6ced59531ec1c91ba9468f80079e8', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:33:36 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '120', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'b340d211-12c6-4841-815c-a79c76c45ee3', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:03:36,356 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '23c6ced59531ec1c91ba9468f80079e8', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:33:36 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '120', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'b340d211-12c6-4841-815c-a79c76c45ee3', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:07:23,868 - utils - WARNING - Token validation failed
+2025-08-03 16:07:24,155 - utils - INFO - Token validation successful
+2025-08-03 16:07:24,160 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:07:24,905 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:07:25,426 - main - INFO - Parsing document...
+2025-08-03 16:07:25,487 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:07:25,487 - main - INFO - Indexing document chunks...
+2025-08-03 16:07:25,496 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:07:26,883 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:07:26,883 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:07:30,392 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:07:34,544 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:07:36,909 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:07:36,909 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '534edf11493bab963abce6b3f8f11231', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:37:36 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '137', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '19d376b5-9cea-4366-8fd5-1bc21f4b7a15', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:07:36,909 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '534edf11493bab963abce6b3f8f11231', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:37:36 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '137', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '19d376b5-9cea-4366-8fd5-1bc21f4b7a15', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:07:36,909 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '534edf11493bab963abce6b3f8f11231', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:37:36 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '137', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '19d376b5-9cea-4366-8fd5-1bc21f4b7a15', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:08:55,610 - utils - WARNING - Token validation failed
+2025-08-03 16:08:55,881 - utils - INFO - Token validation successful
+2025-08-03 16:08:55,881 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:08:56,481 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:08:56,879 - main - INFO - Parsing document...
+2025-08-03 16:08:56,920 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:08:56,920 - main - INFO - Indexing document chunks...
+2025-08-03 16:08:56,922 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:08:58,382 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:08:58,382 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:09:00,988 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:09:04,629 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:09:07,897 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:09:10,485 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:09:10,485 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '2cc04669916a17477a30f069092c14bc', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '36', 'date': 'Sun, 03 Aug 2025 10:39:10 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '145', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'ee821217-ec06-483a-a2e4-e36f99291a08', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:09:10,485 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '2cc04669916a17477a30f069092c14bc', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '36', 'date': 'Sun, 03 Aug 2025 10:39:10 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '145', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'ee821217-ec06-483a-a2e4-e36f99291a08', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:09:10,485 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '2cc04669916a17477a30f069092c14bc', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '36', 'date': 'Sun, 03 Aug 2025 10:39:10 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '145', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'ee821217-ec06-483a-a2e4-e36f99291a08', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:13:48,175 - utils - WARNING - Token validation failed
+2025-08-03 16:13:48,456 - utils - INFO - Token validation successful
+2025-08-03 16:13:48,459 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:13:49,145 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:13:49,497 - main - INFO - Parsing document...
+2025-08-03 16:13:49,546 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:13:49,546 - main - INFO - Indexing document chunks...
+2025-08-03 16:13:49,546 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:13:50,868 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:13:50,868 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:13:53,908 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:13:57,346 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:01,671 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:05,346 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:07,793 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:09,221 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:09,609 - hybrid_retriever - INFO - Indexed 521 chunks in FAISS
+2025-08-03 16:14:41,423 - hybrid_retriever - INFO - Indexed 521 chunks in Pinecone
+2025-08-03 16:14:41,423 - main - INFO - Processing 4 questions...
+2025-08-03 16:14:41,889 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:42,317 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:14:42,331 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:14:42,331 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:14:42,331 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:14:42,696 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:43,053 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:14:43,054 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:14:43,054 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:14:43,054 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:14:43,387 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:43,737 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:14:43,738 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:14:43,738 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:14:43,739 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:14:44,082 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:14:44,426 - hybrid_retriever - INFO - Pinecone returned 8 results
+2025-08-03 16:14:44,426 - hybrid_retriever - INFO - FAISS returned 8 results
+2025-08-03 16:14:44,426 - main - INFO - Type of llm_match: <class 'dict'>
+2025-08-03 16:14:44,426 - main - INFO - Type of answer_dict: <class 'dict'>
+2025-08-03 16:14:44,430 - main - INFO - Total processing time: 55.97s for 4 questions
+2025-08-03 16:14:44,430 - main - INFO - Leaderboard log: [{'question': 'What is the coverage amount for medical expenses?', 'latency': 0.9086003303527832, 'chunks_found': 8}, {'question': 'What are the exclusions mentioned in this policy?', 'latency': 0.7224457263946533, 'chunks_found': 8}, {'question': 'What is the claim procedure?', 'latency': 0.6848711967468262, 'chunks_found': 4}, {'question': 'What is the premium payment schedule?', 'latency': 0.6861436367034912, 'chunks_found': 4}]
+2025-08-03 16:14:44,446 - utils - WARNING - Token validation failed
+2025-08-03 16:15:22,521 - utils - WARNING - Token validation failed
+2025-08-03 16:15:22,787 - utils - INFO - Token validation successful
+2025-08-03 16:15:22,791 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:15:23,389 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:15:23,700 - main - INFO - Parsing document...
+2025-08-03 16:15:23,746 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:15:23,751 - main - INFO - Indexing document chunks...
+2025-08-03 16:15:23,753 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:15:24,978 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:15:24,978 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:15:26,718 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:15:29,512 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:15:31,885 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:15:31,885 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '22447a1969261145112e663d825dc716', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '33', 'date': 'Sun, 03 Aug 2025 10:45:31 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '217', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'd88a9d77-3aa8-44b7-84de-23e152d9379a', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:15:31,890 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '22447a1969261145112e663d825dc716', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '33', 'date': 'Sun, 03 Aug 2025 10:45:31 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '217', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'd88a9d77-3aa8-44b7-84de-23e152d9379a', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:15:31,890 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '22447a1969261145112e663d825dc716', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '33', 'date': 'Sun, 03 Aug 2025 10:45:31 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '217', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'd88a9d77-3aa8-44b7-84de-23e152d9379a', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:21:16,411 - utils - WARNING - Token validation failed
+2025-08-03 16:21:16,703 - utils - INFO - Token validation successful
+2025-08-03 16:21:16,707 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:21:17,424 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:21:17,761 - main - INFO - Parsing document...
+2025-08-03 16:21:17,839 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:21:17,839 - main - INFO - Indexing document chunks...
+2025-08-03 16:21:17,852 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:21:18,117 - urllib3.connectionpool - WARNING - Retrying (JitterRetry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /indexes
+2025-08-03 16:21:19,674 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:21:19,674 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:21:22,140 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:21:24,950 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:21:26,546 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:21:26,546 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '703b1d910353d4df4e15bf1102a943d5', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:51:26 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '111', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'deeb64d1-8e8b-4c35-9d78-e0ed85a974d4', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:21:26,546 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '703b1d910353d4df4e15bf1102a943d5', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:51:26 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '111', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'deeb64d1-8e8b-4c35-9d78-e0ed85a974d4', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:21:26,546 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': '703b1d910353d4df4e15bf1102a943d5', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:51:26 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '111', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': 'deeb64d1-8e8b-4c35-9d78-e0ed85a974d4', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:22:44,839 - utils - WARNING - Token validation failed
+2025-08-03 16:22:45,116 - utils - INFO - Token validation successful
+2025-08-03 16:22:45,116 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:22:45,678 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:22:45,945 - main - INFO - Parsing document...
+2025-08-03 16:22:45,989 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:22:45,989 - main - INFO - Indexing document chunks...
+2025-08-03 16:22:45,989 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:22:47,145 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:22:47,145 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:22:49,358 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:22:53,929 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:22:55,944 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:22:55,944 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': 'be941ea2943438be499276e219521e84', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:52:55 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '208', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '406ddc8b-d6a5-461b-b885-0f84a13f4439', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:22:55,951 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': 'be941ea2943438be499276e219521e84', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:52:55 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '208', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '406ddc8b-d6a5-461b-b885-0f84a13f4439', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:22:55,951 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': 'be941ea2943438be499276e219521e84', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:52:55 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '208', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '406ddc8b-d6a5-461b-b885-0f84a13f4439', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:25:43,479 - utils - WARNING - Token validation failed
+2025-08-03 16:25:43,760 - utils - INFO - Token validation successful
+2025-08-03 16:25:44,404 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 16:25:44,404 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 16:25:44,404 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 16:25:44,469 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 16:25:44,477 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 16:25:45,002 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:25:45,544 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:25:45,788 - main - INFO - Parsing document...
+2025-08-03 16:25:45,832 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:25:45,832 - main - INFO - Indexing document chunks...
+2025-08-03 16:25:45,832 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:25:48,988 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:25:48,990 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:25:50,908 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:25:54,109 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 200 OK"
+2025-08-03 16:25:56,477 - httpx - INFO - HTTP Request: POST https://api.cohere.com/v1/embed "HTTP/1.1 429 Too Many Requests"
+2025-08-03 16:25:56,477 - hybrid_retriever - ERROR - Cohere embedding failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': 'cfdf1140ec4c239f268b62f18eb2d757', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:55:56 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '185', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '531f3685-93ba-4ba3-b75d-8bc5c1b63aad', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:25:56,479 - hybrid_retriever - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': 'cfdf1140ec4c239f268b62f18eb2d757', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:55:56 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '185', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '531f3685-93ba-4ba3-b75d-8bc5c1b63aad', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:25:56,479 - main - ERROR - Indexing failed: headers: {'access-control-expose-headers': 'X-Debug-Trace-ID', 'cache-control': 'no-cache, no-store, no-transform, must-revalidate, private, max-age=0', 'content-type': 'application/json', 'expires': 'Thu, 01 Jan 1970 00:00:00 GMT', 'pragma': 'no-cache', 'vary': 'Origin', 'x-accel-expires': '0', 'x-debug-trace-id': 'cfdf1140ec4c239f268b62f18eb2d757', 'x-endpoint-monthly-call-limit': '1000', 'x-trial-endpoint-call-limit': '40', 'x-trial-endpoint-call-remaining': '37', 'date': 'Sun, 03 Aug 2025 10:55:56 GMT', 'content-length': '124', 'x-envoy-upstream-service-time': '185', 'server': 'envoy', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'}, status_code: 429, body: {'id': '531f3685-93ba-4ba3-b75d-8bc5c1b63aad', 'message': 'trial token rate limit exceeded, limit is 100000 tokens per minute'}
+2025-08-03 16:30:20,639 - utils - WARNING - Token validation failed
+2025-08-03 16:30:20,923 - utils - INFO - Token validation successful
+2025-08-03 16:30:21,555 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 16:30:21,557 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 16:30:21,557 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 16:30:21,631 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 16:30:21,636 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 16:30:22,835 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 16:30:23,426 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 16:30:23,744 - main - INFO - Parsing document...
+2025-08-03 16:30:23,794 - main - INFO - Extracted 521 chunks from document
+2025-08-03 16:30:23,794 - main - INFO - Indexing document chunks...
+2025-08-03 16:30:23,796 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 16:30:26,679 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 16:30:26,679 - hybrid_retriever - INFO - Generating embeddings for 521 chunks...
+2025-08-03 16:30:26,679 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 16:30:26,743 - hybrid_retriever - ERROR - FAISS indexing failed: Vector dimension 768 doesn't match index dimension 1024
+2025-08-03 16:30:33,041 - hybrid_retriever - ERROR - Pinecone indexing failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 11:00:32 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '4737', 'x-pinecone-request-id': '3094374972556020286', 'x-envoy-upstream-service-time': '42', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 16:30:33,044 - main - INFO - Processing 4 questions...
+2025-08-03 16:30:33,044 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 16:30:33,433 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 11:00:33 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '100', 'x-pinecone-request-id': '9092763886181622329', 'x-envoy-upstream-service-time': '55', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 16:30:33,433 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 16:30:33,433 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 16:30:33,436 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 16:30:33,438 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 16:30:33,759 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 11:00:33 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '39', 'x-pinecone-request-id': '6993766951695795012', 'x-envoy-upstream-service-time': '0', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 16:30:33,766 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 16:30:33,766 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 16:30:33,766 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 16:30:33,766 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 16:30:34,094 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 11:00:33 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '40', 'x-pinecone-request-id': '6719967372743889360', 'x-envoy-upstream-service-time': '0', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 16:30:34,094 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 16:30:34,094 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 16:30:34,094 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 16:30:34,094 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 16:30:34,469 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 11:00:34 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '84', 'x-pinecone-request-id': '2795435810546095402', 'x-envoy-upstream-service-time': '45', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 16:30:34,469 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 16:30:34,471 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 16:30:34,471 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 16:30:34,471 - main - INFO - Total processing time: 11.64s for 4 questions
+2025-08-03 16:30:34,473 - main - INFO - Leaderboard log: []
+2025-08-03 19:03:23,426 - utils - WARNING - Token validation failed
+2025-08-03 19:03:23,704 - utils - INFO - Token validation successful
+2025-08-03 19:03:24,429 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 19:03:24,429 - faiss.loader - INFO - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2025-08-03 19:03:24,429 - faiss.loader - INFO - Loading faiss.
+2025-08-03 19:03:24,514 - faiss.loader - INFO - Successfully loaded faiss.
+2025-08-03 19:03:24,829 - main - ERROR - Unexpected error in hackrx_run: unhashable type: 'list'

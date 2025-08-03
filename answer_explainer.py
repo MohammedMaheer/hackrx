@@ -5,28 +5,20 @@ Answer generation with rationale, clause traceability, and confidence scoring
 
 import json
 import logging
+import os
 from typing import List, Dict, Any
-from perplexity_api import perplexity_chat
-
-# Try to import Gemini API as fallback
-try:
-    from gemini_api import gemini_chat
-    GEMINI_AVAILABLE = True
-except ImportError:
-    logging.warning("Gemini API module not found")
-    GEMINI_AVAILABLE = False
+from openai_api import openai_chat
 
 logger = logging.getLogger(__name__)
 
 async def generate_explainable_answer(
     question: str, 
     matched_chunks: List[str], 
-    model: str = "llama-3.1-sonar-small-128k-online"
+    model: str = "gpt-3.5-turbo"
 ) -> Dict[str, Any]:
     """
-    Generate an explainable answer with rationale, matched clauses, and confidence score
+    Generate an explainable answer with rationale, matched clauses, and confidence score (OpenAI only)
     """
-    
     if not matched_chunks:
         return {
             "answer": "No relevant information found in the document.",
@@ -34,144 +26,149 @@ async def generate_explainable_answer(
             "matched_clauses": [],
             "confidence": 0
         }
-    
-    # Limit context size to avoid token limits
-    context_chunks = matched_chunks[:5]
+    # Deduplicate and limit context size for OpenAI input
+    seen = set()
+    context_chunks = []
+    for chunk in matched_chunks:
+        chunk_clean = chunk.strip()
+        if chunk_clean not in seen:
+            seen.add(chunk_clean)
+            context_chunks.append(chunk_clean)
+        if len(context_chunks) >= 2:
+            break
     combined_context = "\n\n".join([f"Clause {i+1}: {chunk}" for i, chunk in enumerate(context_chunks)])
-    
+
     system_prompt = (
-        "You are an expert insurance, legal, and HR document analyst. "
-        "Given a user question and relevant document clauses, provide a comprehensive answer. "
-        "Your response must be a valid JSON object with these exact keys:\n"
+        "You are an expert insurance, legal, and HR document analyst.\n"
+        "Given a user question and relevant document clauses, answer ONLY using the provided clauses.\n"
+        "If the answer is not present, say: 'Not found in document.'\n"
+        "Your response MUST be a valid JSON object with these exact keys:\n"
         "- 'answer': Direct answer to the question (string)\n"
         "- 'rationale': Explanation of how you arrived at the answer (string)\n"
         "- 'matched_clauses': List of relevant clause texts (array of strings)\n"
         "- 'confidence_score': Numerical confidence in your answer (float 0.0-1.0)\n\n"
-        "Be precise, factual, and cite specific parts of the document clauses when possible. "
-        "If the clauses don't contain enough information, say so clearly. "
-        "Ensure your response is valid JSON that can be parsed directly."
+        "Be concise, factual, and cite specific parts of the document clauses.\n"
+        "NEVER make up information. If unsure, say 'Not found in document.'\n"
+        "Your response MUST be valid JSON parsable by Python's json.loads."
     )
-    
+
     user_prompt = (
         f"Document Clauses:\n{combined_context}\n\n"
         f"Question: {question}\n\n"
-        f"Answer in JSON format:"
+        f"Respond in JSON format only."
     )
-    
-    messages = [
+
+    openai_messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt}
     ]
-    
     try:
-        logger.info("Attempting to get answer from Perplexity API")
-        response = await perplexity_chat(messages, model=model)
-        
-        # Parse JSON response
-        if response and isinstance(response, str):
-            if response.startswith("```json"):
-                response = response[7:]
-            if response.endswith("```"):
-                response = response[:-3]
-            
+        openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+        try:
+            data = json.loads(openai_response)
+            required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
+            for key in required_keys:
+                if key not in data:
+                    raise ValueError(f"Missing key in response: {key}")
+            logger.info("Successfully got valid response from OpenAI API")
+            return {
+                "answer": data["answer"],
+                "rationale": data["rationale"],
+                "matched_clauses": data["matched_clauses"],
+                "confidence": data["confidence_score"]
+            }
+        except json.JSONDecodeError as json_err:
+            logger.warning(f"Failed to parse JSON from OpenAI, attempting to parse raw response: {json_err}")
+            return _parse_raw_response(openai_response, context_chunks)
+    except Exception as e:
+        logger.error(f"OpenAI API failed with error: {str(e)}", exc_info=True)
+        return {
+            "answer": "Not found in document.",
+            "rationale": "System encountered an error during answer generation with OpenAI API.",
+            "matched_clauses": context_chunks[:1] if 'context_chunks' in locals() else [],
+            "confidence": 0
+        }
+
+# Async batch version for leaderboard: answers multiple questions efficiently
+async def generate_explainable_answers(
+    questions: List[str],
+    matched_chunks_list: List[List[str]],
+    model: str = "gpt-3.5-turbo"
+) -> List[Dict[str, Any]]:
+    import asyncio
+    tasks = [
+        generate_explainable_answer(q, c, model=model)
+        for q, c in zip(questions, matched_chunks_list)
+    ]
+    return await asyncio.gather(*tasks)
+
+        try:
+            openai_response = await openai_chat(openai_messages, model="gpt-3.5-turbo", temperature=0, max_tokens=128)
             try:
-                data = json.loads(response)
-                
-                # Validate response structure
+                data = json.loads(openai_response)
                 required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
                 for key in required_keys:
                     if key not in data:
                         raise ValueError(f"Missing key in response: {key}")
-                
-                logger.info("Successfully got valid response from Perplexity API")
+                logger.info("Successfully got valid response from OpenAI API")
                 return {
                     "answer": data["answer"],
                     "rationale": data["rationale"],
                     "matched_clauses": data["matched_clauses"],
                     "confidence": data["confidence_score"]
                 }
-                
             except json.JSONDecodeError as json_err:
-                logger.warning(f"Failed to parse JSON from Perplexity, attempting to parse raw response: {json_err}")
-                return _parse_raw_response(response, context_chunks)
-        else:
-            raise ValueError("Empty or invalid response from Perplexity API")
-            
-    except Exception as e:
-        logger.error(f"Perplexity API failed with error: {str(e)}", exc_info=True)
-        raise  # Re-raise to trigger Gemini fallback
-    
-    except Exception as e:
-        logger.error(f"Perplexity API failed: {e}")
-        
-        # Try Gemini API as fallback if available
-        if GEMINI_AVAILABLE:
-            try:
-                logger.info("Attempting fallback to Gemini API")
-                gemini_system_prompt = (
-                    "You are an expert insurance, legal, and HR document analyst. "
-                    "Given a user question and relevant document clauses, provide a comprehensive answer. "
-                    "Respond with a valid JSON object containing these keys: "
-                    "'answer' (direct answer), 'rationale' (explanation), "
-                    "'matched_clauses' (array of relevant clauses), 'confidence_score' (0.0-1.0). "
-                    "Be precise and cite specific document parts. If insufficient, say so clearly."
-                )
-                
-                gemini_user_prompt = (
-                    f"Document Clauses:\n{combined_context}\n\n"
-                    f"Question: {question}\n\n"
-                    f"Answer in JSON format:"
-                )
-                
-                gemini_messages = [
-                    {"role": "user", "content": gemini_system_prompt + "\n\n" + gemini_user_prompt}
-                ]
-                
-                gemini_response = await gemini_chat(gemini_messages, model="gemini-pro")
-                
-                # Parse JSON response
-                if gemini_response.startswith("```json"):
-                    gemini_response = gemini_response[7:]
-                if gemini_response.endswith("```"):
-                    gemini_response = gemini_response[:-3]
-                
-                try:
-                    gemini_data = json.loads(gemini_response)
-                except json.JSONDecodeError:
-                    # Fallback to raw response parsing
-                    return _parse_raw_response(gemini_response, context_chunks)
-                gemini_data = json.loads(gemini_response)
-                
-                # Validate response structure
-                required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
-                for key in required_keys:
-                    if key not in gemini_data:
-                        raise ValueError(f"Missing key in Gemini response: {key}")
-                
-                return {
-                    "answer": gemini_data["answer"],
-                    "rationale": gemini_data["rationale"],
-                    "matched_clauses": gemini_data["matched_clauses"],
-                    "confidence": gemini_data["confidence_score"]
-                }
-            
-            except Exception as gemini_e:
-                logger.error(f"Gemini API also failed: {gemini_e}")
-                # Return error fallback
-                return {
-                    "answer": f"Unable to generate answer due to system error: {str(gemini_e)}",
-                    "rationale": "System encountered an error during answer generation with both Perplexity and Gemini APIs.",
-                    "matched_clauses": context_chunks[:1],
-                    "confidence": 0
-                }
-        else:
-            # Return error fallback
+                logger.warning(f"Failed to parse JSON from OpenAI, attempting to parse raw response: {json_err}")
+                return _parse_raw_response(openai_response, context_chunks)
+        except Exception as e:
+            logger.error(f"OpenAI API failed with error: {str(e)}", exc_info=True)
             return {
-                "answer": f"Unable to generate answer due to system error: {str(e)}",
-                "rationale": "System encountered an error during answer generation.",
-                "matched_clauses": context_chunks[:1],
+                "answer": "Not found in document.",
+                "rationale": "System encountered an error during answer generation with OpenAI API.",
+                "matched_clauses": context_chunks[:1] if 'context_chunks' in locals() else [],
                 "confidence": 0
             }
+    # Default: Gemini
+    try:
+        logger.info("Generating answer using Gemini API")
+        gemini_response = await gemini_chat(gemini_messages, model=model, temperature=0, max_tokens=128)
+        
+        # Parse JSON response
+        if gemini_response.startswith("```json"):
+            gemini_response = gemini_response[7:]
+        if gemini_response.endswith("```"):
+            gemini_response = gemini_response[:-3]
+        
+        try:
+            data = json.loads(gemini_response)
+            
+            # Validate response structure
+            required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
+            for key in required_keys:
+                if key not in data:
+                    raise ValueError(f"Missing key in response: {key}")
+            
+            logger.info("Successfully got valid response from Gemini API")
+            return {
+                "answer": data["answer"],
+                "rationale": data["rationale"],
+                "matched_clauses": data["matched_clauses"],
+                "confidence": data["confidence_score"]
+            }
+            
+        except json.JSONDecodeError as json_err:
+            logger.warning(f"Failed to parse JSON from Gemini, attempting to parse raw response: {json_err}")
+            return _parse_raw_response(gemini_response, context_chunks)
+
+    except Exception as e:
+        logger.error(f"Gemini API failed with error: {str(e)}", exc_info=True)
+        # Always return a valid answer
+        return {
+            "answer": "Not found in document.",
+            "rationale": "System encountered an error during answer generation with Gemini API.",
+            "matched_clauses": context_chunks[:1] if 'context_chunks' in locals() else [],
+            "confidence": 0
+        }
 
 def _parse_raw_response(response: str, context_chunks: List[str]) -> Dict[str, Any]:
     """
@@ -257,7 +254,7 @@ async def generate_summary(chunks: List[str], model: str = "llama-3.1-sonar-smal
     ]
     
     try:
-        return await perplexity_chat(messages, model=model, max_tokens=512)
+        return await gemini_chat(messages, model=model, max_tokens=512)
     except Exception as e:
         logger.error(f"Summary generation failed: {e}")
         return f"Unable to generate summary: {str(e)}"

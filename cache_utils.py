@@ -12,19 +12,29 @@ _CACHE: Dict[str, Tuple[float, Any]] = {}
 _ASYNC_CACHE: Dict[str, Any] = {}
 CACHE_TTL = 600  # 10 minutes
 
+def _make_hashable(obj):
+    """Recursively convert lists/dicts/sets to tuples for hashing"""
+    if isinstance(obj, (tuple, list)):
+        return tuple(_make_hashable(e) for e in obj)
+    elif isinstance(obj, dict):
+        return tuple(sorted((k, _make_hashable(v)) for k, v in obj.items()))
+    elif isinstance(obj, set):
+        return tuple(sorted(_make_hashable(e) for e in obj))
+    return obj
+
 def generate_cache_key(func_name: str, args: tuple, kwargs: dict) -> str:
-    """Generate a stable cache key from function name and arguments"""
+    """Generate a stable cache key from function name and arguments, handling unhashable types"""
     try:
-        # Create a string representation of arguments
-        args_str = str(args)
-        kwargs_str = str(sorted(kwargs.items()))
+        hashable_args = _make_hashable(args)
+        hashable_kwargs = _make_hashable(kwargs)
+        args_str = str(hashable_args)
+        kwargs_str = str(hashable_kwargs)
         combined = f"{func_name}:{args_str}:{kwargs_str}"
-        
-        # Hash to create a stable key
         return hashlib.md5(combined.encode()).hexdigest()
     except Exception:
-        # Fallback to simple string conversion
-        return f"{func_name}:{hash((args, frozenset(kwargs.items())))}"
+        # Fallback to simple string conversion (may still error if unhashable)
+        return f"{func_name}:{hash((str(args), str(kwargs)))}"
+
 
 def cache_result(ttl: int = CACHE_TTL):
     """Decorator for caching synchronous function results"""

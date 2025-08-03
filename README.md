@@ -1,15 +1,16 @@
 # HackRx 6.0 LLM Query–Retrieval System
 
 ## Overview
-A leaderboard-optimized, explainable, and hybrid semantic retrieval system for HackRx 6.0. Supports both Pinecone and FAISS, integrates Perplexity and Cohere APIs, and provides rationale-rich answers for insurance/legal/HR/compliance queries.
+A leaderboard-optimized, explainable, and hybrid semantic retrieval system for HackRx 6.0. Features Google's Gemini as the primary LLM, with hybrid Pinecone and FAISS vector search, delivering rationale-rich answers for insurance/legal/HR/compliance queries.
 
 ## Features
 - FastAPI backend with `/hackrx/run` endpoint
 - Bearer token authentication
 - PDF/DOCX/email parsing with layout/context awareness
 - Hybrid vector DB: Pinecone (cloud) + FAISS (local)
-- Perplexity & Cohere API integration for semantic search
-- LLM-powered answer generation with rationale, clause traceability, and confidence scoring
+- Google Gemini API integration for LLM capabilities
+- Cohere API for embeddings (with fallback to FAISS)
+- Answer generation with rationale, clause traceability, and confidence scoring
 - Optimized for accuracy, latency, and explainability
 
 ## Quickstart

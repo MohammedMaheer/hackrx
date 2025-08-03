@@ -17,7 +17,7 @@ BASE_URL = "https://hackrx-production-f2ba.up.railway.app"  # Change this to you
 API_KEY = os.getenv("HACKRX_API_KEY", "bfb8fabaf1ce137c1402366fb3d5a052836234c1ff376c326842f52e3164cc33")
 
 # Test data
-TEST_DOCUMENT_URL = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"  # Real, public test PDF
+TEST_DOCUMENT_URL = "https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true"  # Real IRDAI insurance policy PDF
 TEST_QUESTIONS = [
     "What is the coverage amount for medical expenses?",
     "What are the exclusions mentioned in this policy?",

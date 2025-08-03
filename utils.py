@@ -115,7 +115,7 @@ def validate_api_keys() -> Dict[str, bool]:
     """Validate that required API keys are present"""
     keys_status = {
         "HACKRX_API_KEY": bool(os.getenv("HACKRX_API_KEY")),
-        "PERPLEXITY_API_KEY": bool(os.getenv("PERPLEXITY_API_KEY")),
+        "GEMINI_API_KEY": bool(os.getenv("GEMINI_API_KEY")),
         "COHERE_API_KEY": bool(os.getenv("COHERE_API_KEY")),
         "PINECONE_API_KEY": bool(os.getenv("PINECONE_API_KEY"))
     }
@@ -125,7 +125,7 @@ def validate_api_keys() -> Dict[str, bool]:
     if missing_keys:
         logger.warning(f"Missing API keys: {', '.join(missing_keys)}")
     else:
-        logger.info("All API keys are present")
+        logger.info("All required API keys are present")
     
     return keys_status
 
