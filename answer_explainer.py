@@ -1,7 +1,20 @@
+#!/usr/bin/env python3
+"""
+Answer generation with rationale, clause traceability, and confidence scoring
+"""
+
 import json
 import logging
 from typing import List, Dict, Any
 from perplexity_api import perplexity_chat
+
+# Try to import Gemini API as fallback
+try:
+    from gemini_api import gemini_chat
+    GEMINI_AVAILABLE = True
+except ImportError:
+    logging.warning("Gemini API module not found")
+    GEMINI_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
@@ -32,16 +45,17 @@ async def generate_explainable_answer(
         "Your response must be a valid JSON object with these exact keys:\n"
         "- 'answer': Direct answer to the question (string)\n"
         "- 'rationale': Explanation of how you arrived at the answer (string)\n"
-        "- 'matched_clauses': List of the most relevant clause texts that support your answer (array of strings)\n"
-        "- 'confidence': Your confidence in the answer from 0-100 (number)\n\n"
-        "Be precise, factual, and base your answer strictly on the provided clauses. "
-        "If the clauses don't fully answer the question, indicate what information is missing."
+        "- 'matched_clauses': List of relevant clause texts (array of strings)\n"
+        "- 'confidence_score': Numerical confidence in your answer (float 0.0-1.0)\n\n"
+        "Be precise, factual, and cite specific parts of the document clauses when possible. "
+        "If the clauses don't contain enough information, say so clearly. "
+        "Ensure your response is valid JSON that can be parsed directly."
     )
     
     user_prompt = (
-        f"Question: {question}\n\n"
         f"Document Clauses:\n{combined_context}\n\n"
-        f"Provide your analysis as a JSON object with the required keys."
+        f"Question: {question}\n\n"
+        f"Answer in JSON format:"
     )
     
     messages = [
@@ -50,65 +64,114 @@ async def generate_explainable_answer(
     ]
     
     try:
-        # Get response from Perplexity
-        response = await perplexity_chat(messages, model=model, max_tokens=1024, temperature=0.1)
+        logger.info("Attempting to get answer from Perplexity API")
+        response = await perplexity_chat(messages, model=model)
         
-        # Try to parse JSON response
-        try:
-            parsed_response = json.loads(response)
+        # Parse JSON response
+        if response and isinstance(response, str):
+            if response.startswith("```json"):
+                response = response[7:]
+            if response.endswith("```"):
+                response = response[:-3]
             
-            # Validate response structure
-            if not isinstance(parsed_response, dict):
-                raise ValueError("Response is not a JSON object")
-            
-            # Extract and validate fields
-            answer = parsed_response.get("answer", "")
-            rationale = parsed_response.get("rationale", "")
-            matched_clauses = parsed_response.get("matched_clauses", [])
-            confidence = parsed_response.get("confidence", 50)
-            
-            # Ensure matched_clauses is a list
-            if isinstance(matched_clauses, str):
-                matched_clauses = [matched_clauses]
-            elif not isinstance(matched_clauses, list):
-                matched_clauses = context_chunks[:2]
-            
-            # Ensure confidence is a number between 0-100
             try:
-                confidence = float(confidence)
-                confidence = max(0, min(100, confidence))
-            except (ValueError, TypeError):
-                confidence = 50
+                data = json.loads(response)
+                
+                # Validate response structure
+                required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
+                for key in required_keys:
+                    if key not in data:
+                        raise ValueError(f"Missing key in response: {key}")
+                
+                logger.info("Successfully got valid response from Perplexity API")
+                return {
+                    "answer": data["answer"],
+                    "rationale": data["rationale"],
+                    "matched_clauses": data["matched_clauses"],
+                    "confidence": data["confidence_score"]
+                }
+                
+            except json.JSONDecodeError as json_err:
+                logger.warning(f"Failed to parse JSON from Perplexity, attempting to parse raw response: {json_err}")
+                return _parse_raw_response(response, context_chunks)
+        else:
+            raise ValueError("Empty or invalid response from Perplexity API")
             
-            # Fallback values if fields are empty
-            if not answer:
-                answer = "Answer could not be determined from the provided clauses."
-            if not rationale:
-                rationale = "Analysis based on document content review."
-            if not matched_clauses:
-                matched_clauses = context_chunks[:1]
-            
-            return {
-                "answer": answer,
-                "rationale": rationale,
-                "matched_clauses": matched_clauses,
-                "confidence": confidence
-            }
-            
-        except json.JSONDecodeError as e:
-            logger.warning(f"JSON parsing failed: {e}")
-            # Fallback: extract information from raw response
-            return _parse_raw_response(response, context_chunks)
+    except Exception as e:
+        logger.error(f"Perplexity API failed with error: {str(e)}", exc_info=True)
+        raise  # Re-raise to trigger Gemini fallback
     
     except Exception as e:
-        logger.error(f"Answer generation failed: {e}")
-        # Return error fallback
-        return {
-            "answer": f"Unable to generate answer due to system error: {str(e)}",
-            "rationale": "System encountered an error during answer generation.",
-            "matched_clauses": context_chunks[:1],
-            "confidence": 0
-        }
+        logger.error(f"Perplexity API failed: {e}")
+        
+        # Try Gemini API as fallback if available
+        if GEMINI_AVAILABLE:
+            try:
+                logger.info("Attempting fallback to Gemini API")
+                gemini_system_prompt = (
+                    "You are an expert insurance, legal, and HR document analyst. "
+                    "Given a user question and relevant document clauses, provide a comprehensive answer. "
+                    "Respond with a valid JSON object containing these keys: "
+                    "'answer' (direct answer), 'rationale' (explanation), "
+                    "'matched_clauses' (array of relevant clauses), 'confidence_score' (0.0-1.0). "
+                    "Be precise and cite specific document parts. If insufficient, say so clearly."
+                )
+                
+                gemini_user_prompt = (
+                    f"Document Clauses:\n{combined_context}\n\n"
+                    f"Question: {question}\n\n"
+                    f"Answer in JSON format:"
+                )
+                
+                gemini_messages = [
+                    {"role": "user", "content": gemini_system_prompt + "\n\n" + gemini_user_prompt}
+                ]
+                
+                gemini_response = await gemini_chat(gemini_messages, model="gemini-pro")
+                
+                # Parse JSON response
+                if gemini_response.startswith("```json"):
+                    gemini_response = gemini_response[7:]
+                if gemini_response.endswith("```"):
+                    gemini_response = gemini_response[:-3]
+                
+                try:
+                    gemini_data = json.loads(gemini_response)
+                except json.JSONDecodeError:
+                    # Fallback to raw response parsing
+                    return _parse_raw_response(gemini_response, context_chunks)
+                gemini_data = json.loads(gemini_response)
+                
+                # Validate response structure
+                required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
+                for key in required_keys:
+                    if key not in gemini_data:
+                        raise ValueError(f"Missing key in Gemini response: {key}")
+                
+                return {
+                    "answer": gemini_data["answer"],
+                    "rationale": gemini_data["rationale"],
+                    "matched_clauses": gemini_data["matched_clauses"],
+                    "confidence": gemini_data["confidence_score"]
+                }
+            
+            except Exception as gemini_e:
+                logger.error(f"Gemini API also failed: {gemini_e}")
+                # Return error fallback
+                return {
+                    "answer": f"Unable to generate answer due to system error: {str(gemini_e)}",
+                    "rationale": "System encountered an error during answer generation with both Perplexity and Gemini APIs.",
+                    "matched_clauses": context_chunks[:1],
+                    "confidence": 0
+                }
+        else:
+            # Return error fallback
+            return {
+                "answer": f"Unable to generate answer due to system error: {str(e)}",
+                "rationale": "System encountered an error during answer generation.",
+                "matched_clauses": context_chunks[:1],
+                "confidence": 0
+            }
 
 def _parse_raw_response(response: str, context_chunks: List[str]) -> Dict[str, Any]:
     """

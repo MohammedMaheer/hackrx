@@ -106,29 +106,65 @@ async def test_authentication():
         "Content-Type": "application/json"
     }
     
-    payload = {
-        "documents": TEST_DOCUMENT_URL,
+    data = {
+        "document_url": TEST_DOCUMENT_URL,
         "questions": ["Test question"]
     }
     
-    async with httpx.AsyncClient() as client:
-        try:
+    # Set a timeout of 5 minutes (300 seconds) for the entire request
+    timeout = httpx.Timeout(300.0, connect=60.0)
+    
+    try:
+        async with httpx.AsyncClient(timeout=timeout) as client:
+            print(f"Sending request to {BASE_URL}/hackrx/run")
+            print(f"Document: {TEST_DOCUMENT_URL}")
+            print(f"Questions: {len(['Test question'])}")
+            
+            # Log the request
+            print("\nRequest Headers:")
+            for key, value in headers.items():
+                if key.lower() == 'authorization':
+                    print(f"{key}: Bearer {'*' * 10}")
+                else:
+                    print(f"{key}: {value}")
+            
+            print("\nRequest Body:")
+            print(json.dumps(data, indent=2))
+            
+            # Make the request
             response = await client.post(
                 f"{BASE_URL}/hackrx/run",
                 headers=headers,
-                json=payload
+                json=data
             )
             
-            if response.status_code == 401:
-                print("Authentication test passed - invalid token rejected")
-                return True
-            else:
-                print(f"Authentication test failed - expected 401, got {response.status_code}")
-                return False
+            print(f"\nResponse Status: {response.status_code}")
+            print("Response Headers:")
+            for key, value in response.headers.items():
+                print(f"{key}: {value}")
                 
-        except Exception as e:
-            print(f"Authentication test failed: {e}")
-            return False
+            print("\nResponse Body:")
+            try:
+                response_data = response.json()
+                print(json.dumps(response_data, indent=2))
+                
+                # Check response status code
+                if response.status_code == 401:
+                    print("Authentication test passed - invalid token rejected")
+                    return True
+                print(f"Unexpected status code: {response.status_code}")
+                return False
+                    
+            except json.JSONDecodeError as e:
+                print(f"Could not parse JSON response: {e}")
+                print(f"Raw response: {response.text[:1000]}...")
+                return False
+            except Exception as e:
+                print(f"Error processing response: {e}")
+                return False
+    except Exception as e:
+        print(f"Request failed: {e}")
+        return False
 
 async def main():
     """Run all tests"""
