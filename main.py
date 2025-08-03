@@ -187,6 +187,7 @@ async def hackrx_run(
                 
                 # LLM clause selection (with caching)
                 llm_match = await cached_semantic(q, retrieved)
+                logger.info(f"Type of llm_match: {type(llm_match)}")
                 
                 # Extract selected chunks
                 selected_chunks = []
@@ -200,6 +201,7 @@ async def hackrx_run(
                 
                 # Generate answer with explanation (with caching)
                 answer_dict = await cached_answer(q, selected_chunks)
+                logger.info(f"Type of answer_dict: {type(answer_dict)}")
                 
                 # Create clause objects
                 matched_clauses_text = answer_dict.get("matched_clauses", selected_chunks)
