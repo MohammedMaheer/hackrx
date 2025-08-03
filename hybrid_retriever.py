@@ -30,7 +30,7 @@ PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 COHERE_API_KEY = os.getenv("COHERE_API_KEY")
 PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
 PINECONE_INDEX = os.getenv("PINECONE_INDEX", "hackrx-llm-index")
-PINECONE_REGION = os.getenv("PINECONE_REGION", "us-west-2")
+PINECONE_REGION = os.getenv("PINECONE_REGION", "us-east-1")
 
 logger = logging.getLogger(__name__)
 

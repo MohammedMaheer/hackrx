@@ -42,14 +42,6 @@ async def test_health_check():
             traceback.print_exc()
             return False
 
-import pytest
-
-@pytest.mark.asyncio
-async def test_health_check():
-    """Test the health check endpoint"""
-    print("Testing health check...")
-    # ...
-
 @pytest.mark.asyncio
 async def test_main_endpoint():
     """Test the main /hackrx/run endpoint"""

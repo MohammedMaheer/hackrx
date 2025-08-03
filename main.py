@@ -164,7 +164,7 @@ async def hackrx_run(
         logger.info("Indexing document chunks...")
         try:
             retriever = HybridRetriever()
-            retriever.index(chunks)
+            await retriever.index(chunks)
         except Exception as e:
             logger.error(f"Indexing failed: {e}")
             raise HTTPException(status_code=500, detail=f"Document indexing failed: {str(e)}")
@@ -175,7 +175,7 @@ async def hackrx_run(
                 question_start = time.time()
                 
                 # Hybrid semantic retrieval
-                retrieved = retriever.search(q, top_k=8)
+                retrieved = await retriever.search(q, top_k=8)
                 
                 if not retrieved:
                     return AnswerWithExplain(
