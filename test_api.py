@@ -12,11 +12,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuration
-BASE_URL = "http://localhost:8000"  # Change this to your Railway URL when deployed
+BASE_URL = "https://hackrx-production-f2ba.up.railway.app"  # Change this to your Railway URL when deployed
 API_KEY = os.getenv("HACKRX_API_KEY", "bfb8fabaf1ce137c1402366fb3d5a052836234c1ff376c326842f52e3164cc33")
 
 # Test data
-TEST_DOCUMENT_URL = "https://example.com/sample-policy.pdf"  # Replace with actual document URL
+TEST_DOCUMENT_URL = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"  # Real, public test PDF
 TEST_QUESTIONS = [
     "What is the coverage amount for medical expenses?",
     "What are the exclusions mentioned in this policy?",

@@ -104,6 +104,10 @@ async def hackrx_run(
         from answer_explainer import generate_explainable_answer
         from cache_utils import acache_result
 
+        # Decorate once, outside process_question
+        cached_semantic = acache_result(perplexity_semantic_search)
+        cached_answer = acache_result(generate_explainable_answer)
+
         leaderboard_log = []
         start_time = time.time()
         
@@ -182,7 +186,6 @@ async def hackrx_run(
                     )
                 
                 # LLM clause selection (with caching)
-                cached_semantic = acache_result(perplexity_semantic_search)
                 llm_match = await cached_semantic(q, retrieved)
                 
                 # Extract selected chunks
@@ -196,7 +199,6 @@ async def hackrx_run(
                     selected_chunks = retrieved[:3]
                 
                 # Generate answer with explanation (with caching)
-                cached_answer = acache_result(generate_explainable_answer)
                 answer_dict = await cached_answer(q, selected_chunks)
                 
                 # Create clause objects
