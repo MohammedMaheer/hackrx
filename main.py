@@ -101,12 +101,12 @@ async def hackrx_run(
     try:
         from document_parser import parse_document
         from hybrid_retriever import HybridRetriever
-        from gemini_api import gemini_semantic_search
+
         from answer_explainer import generate_explainable_answer
         from cache_utils import acache_result
 
         # Decorate once, outside process_question
-        cached_semantic = acache_result(gemini_semantic_search)
+
         cached_answer = acache_result(generate_explainable_answer)
 
         leaderboard_log = []

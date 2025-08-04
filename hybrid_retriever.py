@@ -51,6 +51,8 @@ if PINECONE_AVAILABLE and PINECONE_API_KEY:
         logger.error(f"Failed to initialize Pinecone client: {e}")
 
 # --- FAISS Setup (in-memory, for fallback/local) ---
+# Only fallback for embeddings (random/FAISS) retained. All LLM fallback removed.
+
 class FaissIndex:
     def __init__(self, dim: int):
         if not FAISS_AVAILABLE:
@@ -109,11 +111,12 @@ async def embed_texts_cohere(texts: List[str], model: str = "embed-english-v3.0"
         logger.error(f"Cohere embedding failed: {e}")
         raise
 
+EMBEDDING_DIM = 1024
+
 async def embed_texts_fallback(texts: List[str]) -> np.ndarray:
     """Fallback embedding using random vectors"""
-    # Return random embeddings as fallback
     import numpy as np
-    return np.random.rand(len(texts), 768).astype(np.float32)
+    return np.random.rand(len(texts), EMBEDDING_DIM).astype(np.float32)
 
 async def embed_texts(texts: List[str], model: str = "embed-english-v3.0") -> np.ndarray:
     """Get embeddings with fallback options"""
@@ -125,7 +128,7 @@ async def embed_texts(texts: List[str], model: str = "embed-english-v3.0") -> np
 
 # --- Hybrid Retriever ---
 class HybridRetriever:
-    def __init__(self, use_pinecone: bool = True, use_faiss: bool = True, dim: int = 1024):
+    def __init__(self, use_pinecone: bool = True, use_faiss: bool = True, dim: int = EMBEDDING_DIM):
         self.use_pinecone = use_pinecone and PINECONE_AVAILABLE and pc is not None
         self.use_faiss = use_faiss and FAISS_AVAILABLE
         self.dim = dim

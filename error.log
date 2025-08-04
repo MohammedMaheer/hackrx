@@ -436,3 +436,484 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 2025-08-03 19:03:24,429 - faiss.loader - INFO - Loading faiss.
 2025-08-03 19:03:24,514 - faiss.loader - INFO - Successfully loaded faiss.
 2025-08-03 19:03:24,829 - main - ERROR - Unexpected error in hackrx_run: unhashable type: 'list'
+2025-08-03 21:20:33,549 - utils - WARNING - Token validation failed
+2025-08-03 21:20:33,822 - utils - INFO - Token validation successful
+2025-08-03 21:20:34,676 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 21:20:34,676 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 21:20:34,676 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 21:20:34,776 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 21:20:34,788 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 21:20:35,439 - main - ERROR - Unexpected error in hackrx_run: unexpected indent (answer_explainer.py, line 105)
+2025-08-03 21:22:20,735 - utils - WARNING - Token validation failed
+2025-08-03 21:22:21,011 - utils - INFO - Token validation successful
+2025-08-03 21:22:21,698 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 21:22:21,698 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 21:22:21,698 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 21:22:21,802 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 21:22:21,809 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 21:22:22,268 - main - ERROR - Unexpected error in hackrx_run: unexpected indent (answer_explainer.py, line 105)
+2025-08-03 21:23:07,185 - utils - WARNING - Token validation failed
+2025-08-03 21:23:07,465 - utils - INFO - Token validation successful
+2025-08-03 21:23:07,879 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 21:23:07,879 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 21:23:07,879 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 21:23:07,902 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 21:23:07,906 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 21:23:09,011 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 21:23:09,703 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 21:23:10,168 - main - INFO - Parsing document...
+2025-08-03 21:23:10,264 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 21:23:10,264 - main - INFO - Indexing document chunks...
+2025-08-03 21:23:10,264 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 21:23:12,990 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 21:23:12,990 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 21:23:12,990 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 21:23:13,052 - hybrid_retriever - ERROR - FAISS indexing failed: Vector dimension 768 doesn't match index dimension 1024
+2025-08-03 21:23:17,023 - hybrid_retriever - ERROR - Pinecone indexing failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 15:53:16 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '2456', 'x-pinecone-request-id': '7055281573275535123', 'x-envoy-upstream-service-time': '87', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 21:23:17,024 - main - INFO - Processing 4 questions...
+2025-08-03 21:23:17,025 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 21:23:17,335 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 15:53:17 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '30', 'x-pinecone-request-id': '7731770036223093190', 'x-envoy-upstream-service-time': '27', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 21:23:17,335 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 21:23:17,336 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 21:23:17,336 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 21:23:17,337 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 21:23:17,644 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 15:53:17 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '32', 'x-pinecone-request-id': '3339238152528112068', 'x-envoy-upstream-service-time': '30', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 21:23:17,645 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 21:23:17,645 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 21:23:17,646 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 21:23:17,646 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 21:23:18,565 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 15:53:17 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '2', 'x-pinecone-request-id': '4374107507476007476', 'x-envoy-upstream-service-time': '0', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 21:23:18,569 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 21:23:18,569 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 21:23:18,569 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 21:23:18,569 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 21:23:18,839 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 15:53:18 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '2', 'x-pinecone-request-id': '3965373363772882654', 'x-envoy-upstream-service-time': '0', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 21:23:18,840 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 21:23:18,840 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 21:23:18,840 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 21:23:18,843 - main - INFO - Total processing time: 9.83s for 4 questions
+2025-08-03 21:23:18,843 - main - INFO - Leaderboard log: []
+2025-08-03 22:29:05,326 - utils - WARNING - Token validation failed
+2025-08-03 22:29:05,621 - utils - INFO - Token validation successful
+2025-08-03 22:29:06,754 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 22:29:06,755 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 22:29:06,755 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 22:29:06,852 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 22:29:06,861 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 22:29:07,805 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 22:29:08,690 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 22:29:09,917 - main - INFO - Parsing document...
+2025-08-03 22:29:10,001 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 22:29:10,002 - main - INFO - Indexing document chunks...
+2025-08-03 22:29:10,002 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 22:29:13,102 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 22:29:13,102 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 22:29:13,102 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:29:13,152 - hybrid_retriever - ERROR - FAISS indexing failed: Vector dimension 768 doesn't match index dimension 1024
+2025-08-03 22:29:21,740 - hybrid_retriever - ERROR - Pinecone indexing failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 16:59:21 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '6759', 'x-pinecone-request-id': '1593606385436362242', 'x-envoy-upstream-service-time': '72', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 22:29:21,740 - main - INFO - Processing 4 questions...
+2025-08-03 22:29:21,740 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:29:22,041 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 16:59:21 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '35', 'x-pinecone-request-id': '5525847483542206660', 'x-envoy-upstream-service-time': '33', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 22:29:22,041 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 22:29:22,049 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 22:29:22,049 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 22:29:22,049 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:29:22,355 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 16:59:22 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '2', 'x-pinecone-request-id': '1390850806783156007', 'x-envoy-upstream-service-time': '0', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 22:29:22,356 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 22:29:22,356 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 22:29:22,359 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 22:29:22,359 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:29:22,667 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 16:59:22 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '55', 'x-pinecone-request-id': '5746352331085324300', 'x-envoy-upstream-service-time': '53', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 22:29:22,667 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 22:29:22,667 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 22:29:22,667 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 22:29:22,672 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:29:23,593 - hybrid_retriever - ERROR - Pinecone search failed: (400)
+Reason: Bad Request
+HTTP response headers: HTTPHeaderDict({'Date': 'Sun, 03 Aug 2025 16:59:22 GMT', 'Content-Type': 'application/json', 'Content-Length': '103', 'Connection': 'keep-alive', 'x-pinecone-request-latency-ms': '2', 'x-pinecone-request-id': '2276122296400881136', 'x-envoy-upstream-service-time': '0', 'server': 'envoy'})
+HTTP response body: {"code":3,"message":"Vector dimension 768 does not match the dimension of the index 1024","details":[]}
+
+2025-08-03 22:29:23,593 - hybrid_retriever - INFO - FAISS returned 0 results
+2025-08-03 22:29:23,593 - hybrid_retriever - WARNING - No vector search results, using text fallback
+2025-08-03 22:29:23,593 - hybrid_retriever - WARNING - Text fallback search not implemented
+2025-08-03 22:29:23,598 - main - INFO - Total processing time: 15.79s for 4 questions
+2025-08-03 22:29:23,598 - main - INFO - Leaderboard log: []
+2025-08-03 22:43:01,429 - utils - WARNING - Token validation failed
+2025-08-03 22:43:01,707 - utils - INFO - Token validation successful
+2025-08-03 22:43:02,700 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 22:43:02,700 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 22:43:02,700 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 22:43:02,807 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 22:43:02,810 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 22:43:03,499 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 22:43:04,518 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 22:43:05,752 - main - INFO - Parsing document...
+2025-08-03 22:43:05,833 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 22:43:05,833 - main - INFO - Indexing document chunks...
+2025-08-03 22:43:05,833 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 22:43:08,533 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 22:43:08,533 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 22:43:08,533 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:08,593 - hybrid_retriever - INFO - Indexed 364 chunks in FAISS
+2025-08-03 22:43:44,002 - hybrid_retriever - INFO - Indexed 364 chunks in Pinecone
+2025-08-03 22:43:44,004 - main - INFO - Processing 4 questions...
+2025-08-03 22:43:44,004 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:45,128 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:43:45,149 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:43:45,151 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:45,154 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:46,051 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:43:46,051 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:43:46,051 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:46,051 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:47,189 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:43:47,191 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:43:47,191 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:47,192 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:48,726 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:43:48,726 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:43:48,727 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:48,727 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:43:48,731 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:43:48,731 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:43:48,732 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:43:48,732 - main - INFO - Total processing time: 45.23s for 4 questions
+2025-08-03 22:43:48,732 - main - INFO - Leaderboard log: []
+2025-08-03 22:43:51,841 - utils - WARNING - Token validation failed
+2025-08-03 22:43:52,121 - utils - INFO - Token validation successful
+2025-08-03 22:43:52,122 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 22:43:52,642 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 22:43:53,401 - main - INFO - Parsing document...
+2025-08-03 22:43:53,485 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 22:43:53,486 - main - INFO - Indexing document chunks...
+2025-08-03 22:43:53,487 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 22:43:55,516 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 22:43:55,516 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 22:43:55,517 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:43:55,521 - hybrid_retriever - INFO - Indexed 364 chunks in FAISS
+2025-08-03 22:44:04,138 - hybrid_retriever - INFO - Indexed 364 chunks in Pinecone
+2025-08-03 22:44:04,143 - main - INFO - Processing 4 questions...
+2025-08-03 22:44:04,143 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:05,701 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:44:05,701 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:44:05,701 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:05,704 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:09,149 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:44:09,150 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:44:09,150 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:09,151 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:12,829 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:44:12,830 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:44:12,830 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:12,832 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:16,582 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 22:44:16,583 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 22:44:16,583 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 22:44:16,584 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:44:16,585 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:44:16,585 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:44:16,586 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 65, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 22:44:16,586 - main - INFO - Total processing time: 24.46s for 4 questions
+2025-08-03 22:44:16,587 - main - INFO - Leaderboard log: []
+2025-08-03 23:13:53,071 - utils - WARNING - Token validation failed
+2025-08-03 23:13:53,356 - utils - INFO - Token validation successful
+2025-08-03 23:13:54,131 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-03 23:13:54,131 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-03 23:13:54,131 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-03 23:13:54,235 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-03 23:13:54,244 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-03 23:13:54,775 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 23:13:55,530 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 23:13:56,797 - main - INFO - Parsing document...
+2025-08-03 23:13:56,893 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 23:13:56,893 - main - INFO - Indexing document chunks...
+2025-08-03 23:13:56,902 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 23:13:59,972 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 23:13:59,972 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 23:13:59,972 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:00,180 - hybrid_retriever - INFO - Indexed 364 chunks in FAISS
+2025-08-03 23:14:11,986 - hybrid_retriever - INFO - Indexed 364 chunks in Pinecone
+2025-08-03 23:14:11,990 - main - INFO - Processing 4 questions...
+2025-08-03 23:14:11,990 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:15,735 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:14:15,766 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:14:15,768 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:15,772 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:18,155 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:14:18,156 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:14:18,156 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:18,156 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:22,577 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:14:22,577 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:14:22,578 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:22,578 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:26,665 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:14:26,666 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:14:26,666 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:26,669 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:14:26,670 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:14:26,671 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:14:26,671 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:14:26,671 - main - INFO - Total processing time: 31.90s for 4 questions
+2025-08-03 23:14:26,672 - main - INFO - Leaderboard log: []
+2025-08-03 23:14:26,944 - utils - WARNING - Token validation failed
+2025-08-03 23:14:27,217 - utils - INFO - Token validation successful
+2025-08-03 23:14:27,217 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 23:14:27,822 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 23:14:28,991 - main - INFO - Parsing document...
+2025-08-03 23:14:29,075 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 23:14:29,077 - main - INFO - Indexing document chunks...
+2025-08-03 23:14:29,077 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 23:14:30,539 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 23:14:30,539 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 23:14:30,539 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:14:30,545 - hybrid_retriever - INFO - Indexed 364 chunks in FAISS
+2025-08-03 23:15:06,987 - hybrid_retriever - INFO - Indexed 364 chunks in Pinecone
+2025-08-03 23:15:06,988 - main - INFO - Processing 4 questions...
+2025-08-03 23:15:06,988 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:08,326 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:15:08,334 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:15:08,334 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:08,334 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:11,829 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:15:11,831 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:15:11,831 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:11,831 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:15,314 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:15:15,318 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:15:15,318 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:15,319 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:17,380 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:15:17,380 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:15:17,380 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:15:17,380 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:15:17,380 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:15:17,380 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:15:17,380 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:15:17,380 - main - INFO - Total processing time: 50.16s for 4 questions
+2025-08-03 23:15:17,380 - main - INFO - Leaderboard log: []
+2025-08-03 23:42:47,938 - utils - WARNING - Token validation failed
+2025-08-03 23:42:48,226 - utils - INFO - Token validation successful
+2025-08-03 23:42:48,229 - main - INFO - Downloading document from: https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true
+2025-08-03 23:42:48,942 - httpx - INFO - HTTP Request: GET https://irdai.gov.in/documents/37343/993134/75.All+Risk+-+Policy+Wording_GEN709.pdf/b27ce589-4588-1ea9-34d2-4da9c18fc5f0?version=1.1&t=1668340245453&download=true "HTTP/1.1 200 OK"
+2025-08-03 23:42:50,605 - main - INFO - Parsing document...
+2025-08-03 23:42:50,714 - main - INFO - Extracted 364 semantic chunks from document
+2025-08-03 23:42:50,714 - main - INFO - Indexing document chunks...
+2025-08-03 23:42:50,714 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-03 23:42:53,466 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-03 23:42:53,466 - hybrid_retriever - INFO - Generating embeddings for 364 chunks...
+2025-08-03 23:42:53,466 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:42:53,498 - hybrid_retriever - INFO - Indexed 364 chunks in FAISS
+2025-08-03 23:43:24,188 - hybrid_retriever - INFO - Indexed 364 chunks in Pinecone
+2025-08-03 23:43:24,191 - main - INFO - Processing 4 questions...
+2025-08-03 23:43:24,192 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:25,497 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:43:25,508 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:43:25,508 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:25,524 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:27,095 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:43:27,095 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:43:27,095 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:27,101 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:30,388 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:43:30,388 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:43:30,391 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:30,392 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:32,688 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-03 23:43:32,688 - hybrid_retriever - INFO - FAISS returned 16 results
+2025-08-03 23:43:32,689 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-03 23:43:32,692 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:43:32,697 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:43:32,697 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:43:32,697 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-03 23:43:32,697 - main - INFO - Total processing time: 44.47s for 4 questions
+2025-08-03 23:43:32,697 - main - INFO - Leaderboard log: []
+2025-08-04 00:16:45,343 - utils - WARNING - Token validation failed
+2025-08-04 00:17:39,148 - utils - INFO - Token validation successful
+2025-08-04 00:17:39,992 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-04 00:17:39,992 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-04 00:17:39,992 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-04 00:17:40,100 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-04 00:17:40,107 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-04 00:17:40,686 - main - INFO - Downloading document from: https://www.gutenberg.org/files/1342/1342-0.txt
+2025-08-04 00:17:43,621 - httpx - INFO - HTTP Request: GET https://www.gutenberg.org/files/1342/1342-0.txt "HTTP/1.1 200 OK"
+2025-08-04 00:19:08,793 - utils - INFO - Token validation successful
+2025-08-04 00:19:09,201 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-04 00:19:09,201 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-04 00:19:09,202 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-04 00:19:09,222 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-04 00:19:09,228 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-04 00:19:09,670 - main - INFO - Downloading document from: https://www.w3.org/TR/PNG/iso_8859-1.txt
+2025-08-04 00:19:10,208 - httpx - INFO - HTTP Request: GET https://www.w3.org/TR/PNG/iso_8859-1.txt "HTTP/1.1 301 Moved Permanently"
+2025-08-04 00:20:33,423 - utils - INFO - Token validation successful
+2025-08-04 00:20:33,670 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-04 00:20:33,670 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-04 00:20:33,670 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-04 00:20:33,683 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-04 00:20:33,689 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-04 00:20:34,027 - main - INFO - Downloading document from: https://www.w3.org/TR/png/iso_8859-1.txt
+2025-08-04 00:20:35,270 - httpx - INFO - HTTP Request: GET https://www.w3.org/TR/png/iso_8859-1.txt "HTTP/1.1 404 Not Found"
+2025-08-04 00:21:39,008 - utils - INFO - Token validation successful
+2025-08-04 00:21:39,405 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-04 00:21:39,405 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-04 00:21:39,405 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-04 00:21:39,428 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-04 00:21:39,433 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-04 00:21:39,879 - main - INFO - Downloading document from: https://www.w3.org/Address.txt
+2025-08-04 00:21:40,317 - httpx - INFO - HTTP Request: GET https://www.w3.org/Address.txt "HTTP/1.1 404 Not Found"
+2025-08-04 00:22:40,741 - utils - INFO - Token validation successful
+2025-08-04 00:22:41,122 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-08-04 00:22:41,123 - faiss.loader - INFO - Could not load library with AVX512 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx512'")
+2025-08-04 00:22:41,123 - faiss.loader - INFO - Loading faiss with AVX2 support.
+2025-08-04 00:22:41,141 - faiss.loader - INFO - Successfully loaded faiss with AVX2 support.
+2025-08-04 00:22:41,144 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-08-04 00:22:41,549 - main - INFO - Downloading document from: https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
+2025-08-04 00:22:41,949 - httpx - INFO - HTTP Request: GET https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore "HTTP/1.1 200 OK"
+2025-08-04 00:22:41,956 - main - INFO - Parsing document...
+2025-08-04 00:22:41,956 - main - INFO - Extracted 3 semantic chunks from document
+2025-08-04 00:22:41,956 - main - INFO - Indexing document chunks...
+2025-08-04 00:22:41,956 - hybrid_retriever - INFO - FAISS index initialized
+2025-08-04 00:22:44,408 - hybrid_retriever - INFO - Pinecone index initialized
+2025-08-04 00:22:44,408 - hybrid_retriever - INFO - Generating embeddings for 3 chunks...
+2025-08-04 00:22:44,408 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-04 00:22:44,460 - hybrid_retriever - INFO - Indexed 3 chunks in FAISS
+2025-08-04 00:22:49,899 - hybrid_retriever - INFO - Indexed 3 chunks in Pinecone
+2025-08-04 00:22:49,899 - main - INFO - Processing 1 questions...
+2025-08-04 00:22:49,902 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-04 00:23:04,129 - hybrid_retriever - INFO - Pinecone returned 16 results
+2025-08-04 00:23:04,441 - hybrid_retriever - INFO - FAISS returned 3 results
+2025-08-04 00:23:04,441 - hybrid_retriever - WARNING - No embedding service available, using random fallback
+2025-08-04 00:23:04,448 - answer_explainer - ERROR - OpenAI API failed with error: name 'openai_chat' is not defined
+Traceback (most recent call last):
+  File "C:\Users\mohdm\CascadeProjects\hackrx_llm_query_system\answer_explainer.py", line 66, in generate_explainable_answer
+    openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+NameError: name 'openai_chat' is not defined
+2025-08-04 00:23:04,448 - main - INFO - Total processing time: 22.90s for 1 questions
+2025-08-04 00:23:04,448 - main - INFO - Leaderboard log: []

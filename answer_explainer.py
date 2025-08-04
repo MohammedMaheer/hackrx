@@ -7,7 +7,6 @@ import json
 import logging
 import os
 from typing import List, Dict, Any
-from openai_api import openai_chat
 
 logger = logging.getLogger(__name__)
 
@@ -26,12 +25,12 @@ async def generate_explainable_answer(
             "matched_clauses": [],
             "confidence": 0
         }
-    # Deduplicate and limit context size for OpenAI input
+    # Deduplicate and limit context size for Perplexity input, with explicit clause numbering
     seen = set()
     context_chunks = []
     for chunk in matched_chunks:
         chunk_clean = chunk.strip()
-        if chunk_clean not in seen:
+        if chunk_clean not in seen and chunk_clean:
             seen.add(chunk_clean)
             context_chunks.append(chunk_clean)
         if len(context_chunks) >= 2:
@@ -39,38 +38,36 @@ async def generate_explainable_answer(
     combined_context = "\n\n".join([f"Clause {i+1}: {chunk}" for i, chunk in enumerate(context_chunks)])
 
     system_prompt = (
-        "You are an expert insurance, legal, and HR document analyst.\n"
-        "Given a user question and relevant document clauses, answer ONLY using the provided clauses.\n"
-        "If the answer is not present, say: 'Not found in document.'\n"
+        "You are an expert in insurance, legal, HR, and compliance document analysis.\n"
+        "Given a user question and numbered document clauses, answer ONLY using the provided clauses.\n"
+        "If the answer is not present, respond: 'Not found in document.'\n"
         "Your response MUST be a valid JSON object with these exact keys:\n"
-        "- 'answer': Direct answer to the question (string)\n"
-        "- 'rationale': Explanation of how you arrived at the answer (string)\n"
-        "- 'matched_clauses': List of relevant clause texts (array of strings)\n"
-        "- 'confidence_score': Numerical confidence in your answer (float 0.0-1.0)\n\n"
-        "Be concise, factual, and cite specific parts of the document clauses.\n"
-        "NEVER make up information. If unsure, say 'Not found in document.'\n"
-        "Your response MUST be valid JSON parsable by Python's json.loads."
+        "- 'answer': Direct, concise answer to the question (string, reference clause numbers if possible)\n"
+        "- 'rationale': Brief explanation of how you arrived at the answer, citing specific clause numbers (string)\n"
+        "- 'matched_clauses': List of the most relevant clause texts (array of strings, maximum 2)\n"
+        "- 'confidence_score': Numerical confidence in your answer (float 0.0–1.0; 1.0 = direct match, 0.5 = partial, 0.0 = not found)\n"
+        "Do NOT include any information not present in the clauses. Do NOT output anything except valid JSON.\n"
+        "If clauses are ambiguous or conflicting, explain this in the rationale and set confidence_score to 0.5 or lower.\n"
+        "Your answer will be evaluated for factual accuracy, explainability, and traceability.\n"
     )
 
     user_prompt = (
-        f"Document Clauses:\n{combined_context}\n\n"
+        f"Document Clauses (numbered):\n{combined_context}\n\n"
         f"Question: {question}\n\n"
-        f"Respond in JSON format only."
+        f"Respond ONLY in valid JSON format as instructed above."
     )
 
-    openai_messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt}
-    ]
+    # Prepare Perplexity prompt and call Perplexity API
     try:
-        openai_response = await openai_chat(openai_messages, model=model, temperature=0, max_tokens=128)
+        from perplexity_api import perplexity_chat
+        perplexity_response = await perplexity_chat(system_prompt, user_prompt, max_tokens=128)
         try:
-            data = json.loads(openai_response)
+            data = json.loads(perplexity_response)
             required_keys = ["answer", "rationale", "matched_clauses", "confidence_score"]
             for key in required_keys:
                 if key not in data:
                     raise ValueError(f"Missing key in response: {key}")
-            logger.info("Successfully got valid response from OpenAI API")
+            logger.info("Successfully got valid response from Perplexity API")
             return {
                 "answer": data["answer"],
                 "rationale": data["rationale"],
@@ -78,13 +75,13 @@ async def generate_explainable_answer(
                 "confidence": data["confidence_score"]
             }
         except json.JSONDecodeError as json_err:
-            logger.warning(f"Failed to parse JSON from OpenAI, attempting to parse raw response: {json_err}")
-            return _parse_raw_response(openai_response, context_chunks)
+            logger.warning(f"Failed to parse JSON from Perplexity, attempting to parse raw response: {json_err}")
+            return _parse_raw_response(perplexity_response, context_chunks)
     except Exception as e:
-        logger.error(f"OpenAI API failed with error: {str(e)}", exc_info=True)
+        logger.error(f"Perplexity API failed with error: {str(e)}", exc_info=True)
         return {
             "answer": "Not found in document.",
-            "rationale": "System encountered an error during answer generation with OpenAI API.",
+            "rationale": "System encountered an error during answer generation with Perplexity API.",
             "matched_clauses": context_chunks[:1] if 'context_chunks' in locals() else [],
             "confidence": 0
         }
@@ -93,11 +90,13 @@ async def generate_explainable_answer(
 async def generate_explainable_answers(
     questions: List[str],
     matched_chunks_list: List[List[str]],
-    model: str = "gpt-3.5-turbo"
 ) -> List[Dict[str, Any]]:
+    """
+    Async batch version for leaderboard: answers multiple questions efficiently using Perplexity API only.
+    """
     import asyncio
     tasks = [
-        generate_explainable_answer(q, c, model=model)
+        generate_explainable_answer(q, c)
         for q, c in zip(questions, matched_chunks_list)
     ]
     return await asyncio.gather(*tasks)
@@ -186,7 +185,8 @@ async def generate_summary(chunks: List[str], model: str = "llama-3.1-sonar-smal
     ]
     
     try:
-        return await gemini_chat(messages, model=model, max_tokens=512)
+        response = await openai_chat(messages, model=model, max_tokens=512)
+        return response
     except Exception as e:
         logger.error(f"Summary generation failed: {e}")
         return f"Unable to generate summary: {str(e)}"
